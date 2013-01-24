@@ -1,0 +1,451 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+\usepackage[all,knot]{xy}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 1}
+\rhead{\today}
+
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\xyoption{arc}
+
+\begin{document}
+
+\exercise{1.4.7}
+\begin{enumerate}
+\item[\textbf{(a)}] We want to show that
+  \[
+  \left|\frac{w-z}{1-\conj{w}z}\right| < 1
+  \]
+  whenever $w,z \in \C$ satisfy $\conj{z}w \neq 1$. Note that
+  \[
+  \left|\frac{w-z}{1-\conj{w}z}\right| =
+  |w-z|\left|\frac{1}{1-\conj{w}z}\right| = |w-z||1-\conj{w}z|^{-1}
+  \]
+  So it suffices to show that
+  \[
+  |w-z|^2 < |1-\conj{w}z|^2
+  \]
+  Indeed, we see that
+  \begin{align*}
+    |w-z|^2 &< |1-\conj{w}z|^2 \\
+    (w-z)\conj{(w-z)} &< (1-\conj{w}z)\conj{(1-\conj{w}z)} \\
+    w\conj{w}-w\conj{z}-z\conj{w} + z\conj{z} &<
+    1-\conj{z}w-\conj{w}z+\conj{z}z\conj{w}w \\
+    |w|^2 + |z|^2 &< 1 + |z|^2|w|^2 \\
+    0 &< 1-|w|^2-|z|^2+(|z||w|)^2 \\
+    0 &< (1-|z|^2)(1-|w|^2)
+  \end{align*}
+  And the last equality must hold if $|z| < 1$ and $|w| <
+  1$. Moreover, we see that if $|z| = 1$ or $|w| = 1$, then we must
+  have equality because one of the factors will be zero.
+
+\item[\textbf{(b)}] Now we consider the map
+  \[
+  F: z \mapsto \left|\frac{w-z}{1-\conj{w}z}\right|
+  \]
+  We will show the following
+  \begin{enumerate}
+  \item[(i)] \textit{$F$ maps the unit disk to itself and is holomorphic.}
+
+    It is clear from part \textbf{(a)} that $F: \D \to \D$ because if
+    $|z| \leq 1$ then $|F(z)| \leq 1$. It is also easy to see that
+    $F$ is holomorphic in the whole disk because it is the quotient of
+    two holomorphic functions and the denominator is non-zero
+    everywhere $\conj{z}w \neq 1$.
+
+  \item[(ii)] \textit{$F$ interchanges 0 and $w$, namely $F(0) = w$
+      and $F(w)=0$.}
+
+   Observe that,
+    \[
+    F(0) = \frac{w}{1-0} = w \tab\text{and}\tab F(w) = \frac{w -
+      w}{1-|w|^2} = 0
+    \]
+
+  \item[(iii)] \textit{$|F(z)| = 1$ if $|z| = 1$.}
+
+    This also follows from \textbf{(a)}. We saw that if $|z| = 1$ then
+    \[
+    |F(z)| = \left|\frac{w-z}{1-\conj{w}z}\right| = 1
+    \]
+    as desired.
+
+  \item[(iv)] \textit{$F: \D \to \D$ is bijective.}
+
+    Following the hint we observe that
+    \begin{align*}
+      (F \circ F)(z) &= \frac{w-\left(\frac{w-z}{1-\conj{w}z}\right)}
+      {1-\conj{w}\left(\frac{w-z}{1-\conj{w}z}\right)} \\
+      &= \frac{w(1-\conj{w}z)-(w-z)}{(1-\conj{w}z) - \conj{w}(w-z)} \\
+      &= \frac{w - z|w|^2 - w + z}{1 - \conj{w}z - |w|^2 + \conj{w}z} \\
+      &= \frac{z(1- |w|^2)}{1- |w|^2} \\
+      &= z
+    \end{align*}
+    So $F = F^{-1}$ and the inverse is defined for each $z \in \D$ and
+    hence $F$ is bijective.
+  \end{enumerate}
+\end{enumerate}
+
+\exercise{1.4.9}
+
+In polar coordinates we have the familiar relations
+$x = r\cos\theta$ and $y = r\sin\theta$. If we consider the
+function $f(z) = u + iv$ and the associated map $F(x,y) = u(x,y) +
+iv(x,y)$ we see that
+\[
+\der{u}{r} = \der{u}{x}\der{x}{r} + \der{u}{y}\der{y}{r} =
+\cos\theta\der{u}{x} + \sin\theta\der{u}{y}
+\]
+Similarly, we have
+\[
+\der{u}{\theta} = \der{u}{x}\der{x}{\theta} +
+\der{u}{y}\der{y}{\theta} = -r\sin\theta\der{u}{x} +
+r\cos\theta\der{u}{y}
+\]
+Analogously,
+\[
+\der{v}{r} = \cos\theta\der{v}{x} + \sin\theta\der{v}{y}
+\tab\text{and}\tab \der{v}{\theta} = -r\sin\theta\der{v}{x} +
+r\cos\theta\der{v}{y}
+\]
+Now we use the rectangular Cauchy-Riemann equations to see that
+\[
+\der{u}{r} = \cos\theta\der{u}{x} + \sin\theta\der{u}{y} =
+\cos\theta\der{v}{y} - \sin\theta\der{v}{x} =
+\frac{1}{r}\der{v}{\theta}
+\]
+And
+\[
+\der{u}{\theta} = -r\sin\theta\der{u}{x} + r\cos\theta\der{u}{y} =
+-r\sin\theta\der{v}{y} - r\cos\theta\der{v}{x} = -r\der{v}{r}
+\]
+So we have
+\[
+\der{u}{r} = \frac{1}{r}\der{v}{\theta} \tab\text{and}\tab
+\frac{1}{r}\der{u}{\theta} = -\der{v}{\theta}
+\]
+
+\exercise{1.4.10}
+
+Recall that
+\[
+\der{}{z} = \frac{1}{2}\left(\der{}{x} + \frac{1}{i}\der{}{y}\right)
+\tand \der{}{\conj{z}} = \frac{1}{2}\left(\der{}{x} -
+\frac{1}{i}\der{}{y}\right)
+\]
+Then we see that
+\begin{align*}
+  \der{}{z}\der{}{\conj{z}} &= \frac{1}{4}\left(\der{}{x} +
+    \frac{1}{i}\der{}{y}\right)\left(\der{}{x} +
+    \frac{1}{i}\der{}{y}\right) \\
+  &= \frac{1}{4}\left(\der{}{x}\der{}{x}-\frac{1}{i}\der{}{x}\der{}{y}
+    + \frac{1}{i}\der{}{x}\der{}{y} + \der{}{y}\der{}{y}\right) \\
+  &= \frac{1}{4}\left(\der{^2}{x^2} + \der{^2}{y^2}\right)
+\end{align*}
+An identical computation shows that
+\[
+\der{}{\conj{z}}\der{}{z} = \frac{1}{4}\left(\der{^2}{x^2} +
+  \der{^2}{y^2}\right)
+\]
+If we recall that the Laplacian is $\lap = \der{^2}{x^2} +
+\der{^2}{y^2}$ then we see that
+\[
+4\der{}{\conj{z}}\der{}{z} = 4\der{}{z}\der{}{\conj{z}} = \lap
+\]
+as desired.
+
+\exercise{1.4.13}
+
+We need to show that if $f$ is holomorphic in an
+open set $\Omega$ then in each of the following cases $f$ must be
+constant:
+\begin{enumerate}
+\item[\textbf{(a)}] \textit{$\operatorname{Re}(f)$ is constant.}
+
+  This follows immediately from the Cauchy-Riemann equations. If $f =
+  u +iv$ and $\operatorname{Re}(f)$ is constant then
+  \[
+  \der{u}{x} = \der{u}{y} = 0
+  \]
+  Applying the Cauchy-Riemann equation shows
+  \[
+  \der{v}{x} = \der{v}{y} = 0
+  \]
+  So that $\operatorname{Im}(f) = v$ is constant as well. Hence, $f =
+  u + iv$ is constant.
+
+\item[\textbf{(b)}] \textit{$\operatorname{Im}(f)$ is constant.}
+
+  This is equivalent to part \textbf{(a)}. This time we have that
+  $\der{v}{x} = \der{v}{y} = 0$ because $\operatorname{Im}(f)$ is
+  constant. Consequently, have that $\der{u}{x} = \der{u}{y} = 0$ and
+  so $u$ must be constant and thus $f$ as well.
+
+\item[\textbf{(c)}] \textit{$|f|$ is constant.}
+
+  If $|f|$ is constant then so is $|f|^2 = u^2+v^2 = M$. Now we
+  differentiate with respect to $x$ and $y$ to get the identities
+  \begin{align*}
+    2u\der{u}{x} + 2v\der{v}{x} &= 0 \\
+    2u\der{u}{y} + 2v\der{v}{y} &= 0
+  \end{align*}
+  Eliminating the factor of $2$ these imply that
+  \begin{align*}
+    u\der{u}{x} + u\der{v}{x} - u\der{v}{x} + v\der{v}{x} &= 0 \\
+    u(\der{u}{x} + \der{v}{x}) + (v-u)\der{v}{x}
+  \end{align*}
+  and
+  \begin{align*}
+    u\der{u}{y} + u\der{v}{y} - u\der{v}{y} + v\der{v}{y} &= 0 \\
+    u(\der{u}{x} + \der{v}{y}) + (v-u)\der{v}{y}
+  \end{align*}
+  Adding these identities gives
+  \begin{align*}
+    2u\left(\der{u}{x} + \der{v}{x}\right) + (v-u)\left(\der{v}{x} +
+      \der{v}{y}\right) &= 0
+  \end{align*}
+  We then make the substitution $\der{u}{x} = \der{v}{y}$ in the
+  second term and then note that because the derivative is unique
+  \[
+  f'(z) = \left(\der{u}{x} + \der{v}{x}\right)
+  \]
+  The above resolves to
+  \begin{align*}
+    2uf'(z) + (v-u)f'(z) &= 0 \\
+    (u+v)f'(z) &= 0
+  \end{align*}
+  This equation is true for all $u$ and $v$ and thus we must have that
+  $f'(z) = 0$. We then apply Corollary 3.4 from the text to conclude
+  that $f$ is constant.
+\end{enumerate}
+
+\exercise{1.4.18}
+
+Suppose that $f(z) = \sum_{n=0}^\infty a_nz^n$ is a power series with
+radius of convergence $R$. Choose a $z_0$ such that $|z_0| < R$. Then
+we write $z = z_0 + (z-z_0)$ and apply the binomial theorem to see that
+\[
+z^n = \sum_{k=0}^n \binom{n}{k}z_0^{n-k}(z-z_0)^k
+\]
+If we choose $z$ in the disk $|z| < R - |z_0|$ then we see that
+\begin{align*}
+  \sum_{k=0}^\infty\left(\sum_{n=k}^n
+    |a_n|\binom{n}{k}|z_0^{n-k}|\right)|(z-z_0)^k| &=
+  \sum_{k=0}^\infty|a_n|\left|\sum_{n=k}^n
+    \binom{n}{k}z_0^{n-k}(z-z_0)^k\right| \\
+  &= \sum_{n=1}^\infty |a_n| (|z_0| + |z - z_0|)^n < \infty
+\end{align*}
+So the series converges absolutely in the disk $|z| < R - |z_0|$. As a
+result, we can rearrange terms in the series yielding
+\[
+\sum_{n=0}^\infty a_nz^n = \sum_{n=0}^\infty a_n\left(\sum_{k=1}^n
+  \binom{n}{k}z_0^{n-k}(z-z_0)^k\right) = \sum_{k=0}^\infty
+\left(\sum_{n=k}^n a_n\binom{n}{k}z_0^{n-k}\right)(z-z_0)^k
+\]
+So because $f(z)$ converges in $|z| < R$ we have that
+\[
+\left|\sum_{k=0}^\infty \left(\sum_{n=k}^n
+    a_n\binom{n}{k}z_0^{n-k}\right)(z-z_0)^k\right| =
+\left|\sum_{n=0}^\infty a_nz^n\right| < \infty
+\]
+converges for any $|z_0| < R$ and $|z| < R - |z_0|$. And so $f(z)$ has
+a power series expansion for any $z_0$ in its disk of convergence.
+
+\exercise{1.4.23}
+
+Consider
+\[
+f(x) =
+\begin{cases}
+  0 & x \leq 0 \\
+  e^{-1/x^2} & x > 0
+\end{cases}
+\]
+We are interested in the behavior of $f$ and its derivatives at the
+origin. Consider $f(\frac{1}{x}), x > 0$ so that $\lim_{x\to 0^+}f(x)
+= \lim_{x\to\infty}f(\frac{1}{x})$. We see that $f(\frac{1}{x}) =
+e^{-x^2}$. If we write this in terms of power series we get
+\[
+f\left(\frac{1}{x}\right) = \sum_{n=0}^\infty \frac{(-1)^nx^{2n}}{n!}
+\]
+We then observe that
+\[
+\frac{1}{R} = \limsup_{n\to\infty}|a_n|^{1/n} =
+\limsup_{n\to\infty}|1/n!|^{1/n} < \limsup_{n\to\infty}|1/n^n|^{1/n} =
+\limsup_{n\to\infty}1/n = 0
+\]
+And so $f(\frac{1}{x})$ converges on all of $(0,\infty)$. Now we note that
+\[
+\lim_{x\to\infty} f\left(\frac{1}{x}\right) = 0
+\]
+Hence, $\lim_{x\to 0^+}f(x) = 0$. Now we apply Corollary 2.7 from the
+text to get that $f(\frac{1}{x})$ is infinitely differentiable on $(0,
+\infty)$ and the derivatives converge on the whole interval as
+well.
+
+Again we observe that $\lim_{x \to 0^+} f^{(k)}(x) = \lim_{x\to\infty}
+f^{(k)}(\frac{1}{x})$. Differentiating term term gives
+\[
+f^{(k)}\left(\frac{1}{x}\right) = \sum_{n\geq
+  k}\frac{(-1)^n(2n)!x^{2n-k}}{(2n-k)!n!}
+\]
+Let $a_n$ be the coefficients of $f(\frac{1}{z})$ and let $b_n$ be the
+coefficients of $f^{(k)}(\frac{1}{x})$ then choose $N$ large enough
+such that $|f(\frac{1}{x}) - \sum_{n=0}^N a_nx^{2n}| < \epsilon/2$ and
+$|f^{(k)}(\frac{1}{x}) - \sum_{n=k}^N b_nx^{2n-k}| <
+\epsilon/2$. Observe that $x > 2n$ implies $x^{2n} >
+(2n)!x^{2n-k}/(2n-k)!$ (compare factor by factor) then compute
+\[
+\lim_{x\to\infty} \left|f^{(k)}\left(\frac{1}{x}\right)\right| \leq
+\lim_{x\to\infty} \sum_{n=k}^N b_nx^{2n-k} + \epsilon/2 \leq
+\sum_{n=0}^N a_nx^{2n} + \epsilon/2 \leq
+\lim_{x\to\infty}f\left(\frac{1}{x}\right) + \epsilon/2 + \epsilon/2 =
+\epsilon
+\]
+This shows that $\lim_{x\to\infty} f^{(k)}{\frac{1}{x}} = 0$ and
+consequently we have $\lim_{x\to 0^+} f^{(k)}(x) = 0$ as well.
+
+Finally, we can conclude that $f$ is infinitely differentiable on $\R$
+because the left and right hand limits of the derivative agree and we
+have $f^{(n)}(0) = 0$. Consequently, we apply Taylor's formula to see
+that if $f$ had a power series expansion about the origin it would be
+of the form
+\[
+f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(0)x^n}{n!} = 0
+\]
+But $f$ is non-zero in any interval $(0,\delta)$ and so the power
+series does not converge.
+
+\exercise{1.4.25}
+We need to evaluate the following:
+\begin{enumerate}
+\item[\textbf{(a)}] \textit{$\int_\gamma z^ndz$ where $\gamma$ is a circle
+  centered at the origin.}
+
+Parametrize $\gamma$ by setting $z = re^{i\theta}$ where $\theta \in
+[0,2\pi)$. Then we see that $dz = ire^{i\theta}d\theta$. So we can evaluate
+\[
+\int_\gamma z^ndz =
+\int_0^{2\pi}(r^ne^{in\theta})(ire^{i\theta})d\theta =
+ir^{n+1}\int_0^{2\pi}e^{i(n+1)\theta}d\theta =
+\frac{ir^{n+1}}{n+1}(e^{2\pi i(n+1)} - e^0) = 0
+\]
+
+\item[\textbf{(b)}] \textit{$\int_\gamma z^ndz$ where $\gamma$ is a circle
+  not enclosing the origin.}
+
+Suppose that $\gamma$ is centered at $z_0$. We then use the
+parametrization $z = z_0 + re^{i\theta}$ where $r < |z_0|$. As before,
+we have $dz = ire^{i\theta}d\theta$. Consequently,
+\begin{align*}
+  \int_\gamma z^ndz &= \int_0^{2\pi}(z_0 + re^{i\theta})(ire^{i\theta})d\theta\\
+  &= \int_0^{2\pi} \sum_{k=0}^n
+  i\binom{n}{k}z_0^{n-k}r^{k+1}e^{i\theta(k+1)}d\theta \\
+  &= \sum_{k=1}^ni\binom{n}{k}z_0^{n-k}r^{k+1}\int_0^{2\pi}
+  e^{i\theta(k+1)}d\theta
+\end{align*}
+As in part \textbf{(a)} we see that each of the integral terms is zero
+and hence the sum is zero as well. So
+\[
+\int_\gamma z^ndz = 0
+\]
+
+\item[\textbf{(c)}] \textit{If $|a| < r < |b|$ then}
+\[
+\int_\gamma \frac{1}{(z-a)(z-b)}dz = \frac{2\pi i}{a - b}
+\]
+\textit{where $\gamma$ denotes the circle centered at the origin, of
+  radius $r$, with the positive orientation.}
+
+Let $f(z) = (z-a)^{-1}(z-b)^{-1}$. We will proceed via integration by
+parts. We compute
+\[
+\int_\gamma \frac{1}{(z-a)(z-b)}dz = \frac{1}{a-b}\int_\gamma
+\frac{dz}{z-a} + \frac{1}{b-a}\int_\gamma \frac{dz}{z - b}
+\]
+The first thing to note is that $f$ has a singularity at $a$. We
+evaluate this integral via a change of variable $w = z - a$ and so
+\[
+\int_\gamma\frac{dz}{z-a} = \int_{\gamma - a} \frac{dw}{w} = 2\pi i
+\]
+Now we need to consider $\int_\gamma \frac{dz}{z-b}$. This function
+has no singularities inside the disk $|z| < r$. We can then note that
+\[
+\frac{1}{z-b} = \frac{-1}{b}\cdot\frac{1}{1-(z/b)} =
+\frac{-1}{b}\sum_{n=0}^\infty \frac{(-1)^nz^n}{b^n}
+\]
+The series on the right converges uniformly and absolutely inside the
+disk $|z| < |b|$ and in particular $|z| < r$. Thus, we can integrate term
+by term and see
+\[
+\int_\gamma \frac{dz}{z-b} = \frac{-1}{b}\int_\gamma \sum_{n=0}^\infty
+\frac{(-1)^nz^n}{b^n}dz = \sum_{n=0}^\infty \frac{(-1)^n}{b^n}\int_\gamma z^ndz
+\]
+Each term in the series evaluates to 0 by part \textbf{(a)} and so we
+have that
+\[
+\int_\gamma \frac{dz}{z-b} = 0
+\]
+Substituting in our original expression gives
+\[
+\int_\gamma \frac{1}{(z-a)(z-b)}dz = \frac{2\pi i}{a - b}
+\]
+\end{enumerate}
+
+\exercise{1.4.26}
+
+Let $f$ be continuous in the region $\Omega$ and suppose that $F$ and
+$G$ are two primitives of $f$. Consider $H = F - G$. We see that
+\[
+\frac{d}{dz}H = \frac{d}{dz}F - \frac{d}{dz}G = f - f = 0
+\]
+We then apply Corollary 3.4 to see that $H = F - G$ is constant. So
+any two primitives of $f$ must differ by a constant. 
+\end{document}
