@@ -186,10 +186,14 @@ Then we see that
     \frac{1}{i}\der{}{y}\right)\left(\der{}{x} +
     \frac{1}{i}\der{}{y}\right) \\
   &= \frac{1}{4}\left(\der{}{x}\der{}{x}-\frac{1}{i}\der{}{x}\der{}{y}
+    + \frac{1}{i}\der{}{y}\der{}{x} + \der{}{y}\der{}{y}\right) \\
+  &= \frac{1}{4}\left(\der{^2}{x}-\frac{1}{i}\der{}{x}\der{}{y}
     + \frac{1}{i}\der{}{x}\der{}{y} + \der{}{y}\der{}{y}\right) \\
   &= \frac{1}{4}\left(\der{^2}{x^2} + \der{^2}{y^2}\right)
 \end{align*}
-An identical computation shows that
+The the mixed partials are equal when $f$ is $C^2$ and so the third
+equality is justified in this case (because holomorphic functions
+are $C^\infty$). An identical computation shows that
 \[
 \der{}{\conj{z}}\der{}{z} = \frac{1}{4}\left(\der{^2}{x^2} +
   \der{^2}{y^2}\right)
@@ -422,14 +426,8 @@ has no singularities inside the disk $|z| < r$. We can then note that
 \frac{-1}{b}\sum_{n=0}^\infty \frac{(-1)^nz^n}{b^n}
 \]
 The series on the right converges uniformly and absolutely inside the
-disk $|z| < |b|$ and in particular $|z| < r$. Thus, we can integrate term
-by term and see
-\[
-\int_\gamma \frac{dz}{z-b} = \frac{-1}{b}\int_\gamma \sum_{n=0}^\infty
-\frac{(-1)^nz^n}{b^n}dz = \sum_{n=0}^\infty \frac{(-1)^n}{b^n}\int_\gamma z^ndz
-\]
-Each term in the series evaluates to 0 by part \textbf{(a)} and so we
-have that
+disk $|z| < |b|$ and in particular $|z| < r$. Hence, this function is
+holomorphic in this disk (quotient of non-zero holomorphic functions) so
 \[
 \int_\gamma \frac{dz}{z-b} = 0
 \]
@@ -447,5 +445,5 @@ $G$ are two primitives of $f$. Consider $H = F - G$. We see that
 \frac{d}{dz}H = \frac{d}{dz}F - \frac{d}{dz}G = f - f = 0
 \]
 We then apply Corollary 3.4 to see that $H = F - G$ is constant. So
-any two primitives of $f$ must differ by a constant. 
+any two primitives of $f$ must differ by a constant.
 \end{document}
