@@ -1,0 +1,420 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6510 Problem Set 3}
+\rhead{\today}
+
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{2.6.15}
+
+Following the hint, we extend $f$ to all of $\C$ via the function
+\[
+F(z) =
+\begin{cases}
+  f(z) & |z| \leq 1 \\
+  \frac{1}{\conj{f(1/\bar{z})}} & |z| > 1
+\end{cases}
+\]
+Now we establish that $F$ is continuous in the whole plane. Because
+$f$ is holomorphic in $\D$, it is also continuous there. In $|z| > 1$,
+$F$ is also continuous becuase $f$ is non-vanishing in $\D$ and $F$ is
+the composition of continuous functions. On the boundary,
+$\partial\D$, we consider a point $z \in \partial\D$ and the limit of
+$F(w)$ as $w \to z$ from the complement of the disk. Then $1/\bar{w}
+\to 1/z = z$ so that
+\[
+F(w) = 1/\conj{1/\bar{w}} \to 1/\conj{f(z)} = f(z) = F(z)
+\]
+So $F$ is continuous in the whole plane.
+
+Now we will show that $F$ is entire. By assumption, we know that $F$
+is holomorphic in the interior of $\D$. For the complement of $\D$,
+consider a contour $C$ in $\D^c$. Consider the image of $C$ under the
+map $w = 1/z$, $C'$, which will be a curve strictly contained in $\D$
+because $|z| > 1$ for every $z \in C$. Moreover, the origin is not in
+the interior of $C'$ because $|z| < \infty$ for all $z \in
+C$. Consequently,
+\[
+\int_C F(z)dz = \int_{C'}\frac{-1dw}{w^2\conj{f(\bar{w})}} = 0
+\]
+where the second equality is because $1/w^2\conj{f(\bar{w})}$ is
+analytic on $C'$ and its interior.
+
+We now need to verify that $F$ is analytic at the boundary $\partial
+\D$. We now argue as in the proof of the Schwartz reflection
+principle. Let $T$ be a triangle that crosses the boundary of
+$\D$. We subdivide $T$ into the following types of subtriangles, $T_i$
+\begin{enumerate}
+\item A vertex of $T_i$ lies on the boundary of $\D$.
+\item An edge of $T_i$ is a chord of $\D$.
+\end{enumerate}
+In the first case, we argue as in the Schwartz reflection principle:
+perturb the vertex that lies on $\partial \D$ by $\epsilon$ and note
+that for each $\epsilon > 0$ thi integral of $F$ around $T_i$ is 0
+because it lies either only in the interior or complement of $\D$. In
+the second case we continue to subdivide $T_i$. We consider the arc in
+$\partial \D$ that is subtended by the edge in $T_i$ and its midpoint
+$p$. Divide $T_i$ into smaller triangles by drawing the triangles
+$e_1pe_2$ where $e_1$ and $e_2$ are the endpoint of the chord. This
+strictly decreases the distance between a point in a triangle, and the
+boundary of the disk. We continue this process until all points are
+within $\epsilon$ distance of $\partial\D$. We now apply the same
+argument as above to see that the integral across the subtriangles,
+and hence $T_i$, is zero. Consequently, $F$ is entire.
+
+Now we notice that $f(\D)$ is the continuous image of a compact set
+(that does not include the origin), hence $F$ bounded. So $1/f$ is
+also bounded on $\D$. $F$ is then a bounded entire function and
+therefore constant. As a result we see that $f$ must be constant.
+
+\exercise{3.8.2}
+
+We want to evaluate
+\[
+\int_{-\infty}^\infty \frac{1}{1+x^4}dx
+\]
+We proceed by studying the complex function $f(z) = 1/(1+z^4)$. First,
+we need to find the poles of $f$. We can see that $f$ has a
+singularity at points where $z^4 = -1$. By setting $z = re^{i\theta}$
+and noting that $e^{i\pi} = -1$, we see that the only singularities in
+the the interval are at $\theta = \pi/4, 3\pi/4,5\pi/4,7\pi/4$.
+
+We can determine the type of singularity that $f$ has at each of
+the points above. If we look at the denominator $1+z^4$ we can use the
+fact that polynomials are a product of linear factors to see that each
+pole is a simple pole (no roots are repeated in this case).
+
+Now we consider the only solutions in the upper
+half plane, $\theta = \pi/4,3\pi/4$ and integrate $f$ over the
+following contour
+
+% DRAW PICTURE
+\begin{figure*}[!h]
+  \centering
+  \begin{tikzpicture}
+    \node[below] (O) at (0,0) {0};
+    \node[below] (LR) at (-1.5,0) {$-R$};
+    \node[below] (RR) at (1.5,0) {$R$};
+    \node[above] (GR) at (1,1.3) {$C_R$};
+    \draw[->] (1.5,0) arc (0:90:1.5);
+    \draw (0,1.5) arc (90:180:1.5);
+    \draw (-.75,0) -- (0,0);
+    \draw[->] (0,0) -- (.75,0);
+    \draw[->] (-1.5,0) -- (-.75,0);
+    \draw (.75,0) -- (1.5,0);
+  \end{tikzpicture}
+  \caption{A semicircular contour.}
+\end{figure*}
+
+Set $z_0 = e^{i\pi/4}$ and $z_1 = e^{3\pi/4}$ then apply the residue
+theorem to see that
+\[
+\int_C \frac{1}{1+z^4}dz = 2\pi i(\res_{z_0} f(z) +
+\res_{z_1} f(z))
+\]
+We begin by calculating the residues at $z_0, z_1$. Using
+the factorization for $1+z^4$ we get
+\[
+\res_{z_0} f(z) = \lim_{z \to z_0}(z - z_0) \cdot
+\frac{1}{(z-z_0)(z-z_1)(z-e^{5i\pi/4})(z-e^{7\pi i/4})} =
+\frac{1}{4}e^{5\pi i}
+\]
+and
+\[
+\res_{z_0} f(z) = \lim_{z \to z_1}(z - z_1) \cdot
+\frac{1}{(z-z_0)(z-z_1)(z-e^{5i\pi/4})(z-e^{7\pi i/4})} =
+\frac{1}{4}e^{7\pi i}
+\]
+
+Now we observe that
+\[
+\left|\int_{C_R} \frac{1}{1+z^4}dz\right| \leq \int_{C_R}\left|
+  \frac{1}{1+z^4}\right|dz \leq \int_{C_R}\left| \frac{1}{|z|^4 -
+    1}\right|dz \leq \int_0^\pi \frac{|iRe^{i\theta}|}{|Re^{i\theta}|
+  - 1}d\theta \leq \frac{\pi R}{R^4 - 1}
+\]
+Sending $R \to \infty$ gives that
+\[
+\lim_{R\to\infty} \int_{C_R} \frac{1}{1+z^4}dz = 0
+\]
+So that as $R \to\infty$ the integral around $C$ becomes
+\[
+\int_{-\infty}^\infty \frac{1}{1+z^4}dz = 2\pi
+i\left(\frac{1}{4}e^{5\pi i} + \frac{1}{4}e^{7\pi i}\right) = 2\pi
+i\left(\frac{\sqrt{2}i}{4}\right) = \frac{\pi}{\sqrt{2}}
+\]
+
+\exercise{3.8.4}
+
+We want to show that
+\[
+\int_{-\infty}^\infty \frac{x\sin x}{x^2+a^2}dx = \pi e^{-a}
+\]
+We set
+\[
+f(z) = \frac{ze^{iz}}{z^2 + a^2} = \frac{ze^{iz}}{(z+ia)(z-ia)}
+\]
+so that
+\[
+\imag(f(z)) =  \frac{x\sin x}{x^2+a^2}
+\]
+
+We see that $f$ has simple poles as $z = \pm ia$. If we integrate
+about the semicicular contour of radius $R$ then the residue formula
+says that
+\[
+\int_C f(z)dz = \int_{-R}^R f(z)dz + \int_{C_R} f(z)dz = 2\pi i\res_{ia} f(z)
+\]
+We compute the residue at $z = ia$ via
+\[
+\res_{ia} f(z) = \lim_{z\to ia} (z-ia)\cdot
+\frac{ze^{iz}}{(z+ia)(z-ia)} = \frac{e^{-a}}{2}
+\]
+
+Now we observe compute the integral about the arc
+\[
+\left|\int_{C_R} \frac{ze^{iz}}{z^2 + a^2}dz\right| = \left|\int_{0}^\pi
+    \frac{Re^{i\theta}e^{iRe^{i\theta}}}{R^2e^{2i\theta} +
+      a^2}d\theta\right| \leq \int_{0}^\pi\left|
+      \frac{Re^{i\theta}e^{iRe^{i\theta}}}{R^2e^{2i\theta} +
+        a^2}\right|d\theta \leq \frac{R\pi}{R^2 + a^2}
+\]
+which goes to zero as $R \to \infty$. Consequently, the integral about
+all of $C$ is given only by the value on the real line as $R\to
+\infty$ so
+\[
+\int_{-\infty}^\infty \frac{x\sin x}{x^2+a^2}dx = \imag \left(2\pi
+i\frac{e^{-a}}{2}\right) = \pi e^{-a}
+\]
+\exercise{3.8.5}
+
+We need to verify that
+\[
+\int_{-\infty}^\infty \frac{e^{-2\pi ix\xi}}{(1+x^2)^2}dx =
+\frac{\pi}{2}(1+2\pi|\xi |)e^{-2\pi |\xi |}
+\]
+Consider the function
+\[
+f(z) = \frac{e^{-2\pi iz\xi}}{(1+z^2)^2}
+\]
+This function has poles of order 2 at points where $z^2 = -1$, namely,
+$\pm i$. We apply Theorem 1.4 in the text to compute the residue
+\begin{align*}
+  \res_i f &= \lim_{z \to i} \frac{d}{dz}\left((z -
+    i)^2
+    \cdot\frac{e^{-2\pi iz\xi}} {(1+z^2)^2}\right)\\
+  &= \lim_{z \to i}\frac{d}{dz}\left(\frac{e^{-2\pi iz\xi}}
+    {(z+i)^2}\right) \\
+  &= \lim_{z \to i} \frac{e^{-2\pi i z\xi}(-2\pi i(z+i) - 2)}{(z+i)^3} \\
+  &= \frac{e^{2\pi\xi}(4\pi\xi - 2)}{8i}
+\end{align*}
+Again, we will integrate $f$ about a semicircle of radius $R$ in the
+upper half plane, so that the only pole is at $z = i$. Applying the
+residue formula we see that
+\[
+\int_C f(z)dz = 2\pi i \left(\frac{e^{2\pi\xi}(4\pi\xi - 2)}{8i}\right)
+\]
+We then look at the values of $f$ along the arc in $C$. We can
+estimate the integral by
+\[
+\left|\int_{C_R} \frac{e^{-2\pi iz\xi}}{(1+z^2)^2}dz\right| \leq
+\int_{C_R} \left|\frac{e^{-2\pi iz\xi}}{(1+z^2)^2}\right|dz =
+\int_0^\pi \left|\frac{iRe^{i\theta}e^{-2\pi
+      iRe^{i\theta}\xi}}{(1+R^2e^{2i\theta})^2}\right| d\theta \leq
+\frac{2\pi R}{R^2 + 1}
+\]
+We then let $R\to\infty$ so that the integral about $C_R$ will
+vanish. So the integral about all of $C$ reduces to
+\[
+\int_{-\infty}^\infty \frac{e^{-2\pi ix\xi}}{(1+x^2)^2}dx = 2\pi
+i\left(\frac{e^{2\pi\xi}(4\pi\xi - 2)}{8i}\right) =
+\frac{\pi}{2}(1+2|\xi |)e^{-2\pi|\xi |}
+\]
+
+\exercise{3.8.6}
+
+We want to show that
+\[
+\int_{-\infty}^\infty \frac{dx}{(1+x^2)^{n+1}} = \frac{1\cdot 3\cdot
+  5\cdots (2n-1)}{2\cdot 4\cdot 6\cdots (2n)}\cdot\pi
+\]
+for $n \geq 1$. Indeed, we consider the function $f(z) =
+1/(1+z^2)^{n+1}$. This function has poles of order $n+1$ at $z = \pm
+i$. As before, we will restrict our attention to $f$ in a semicircle
+contained in the upper half plane. We compute the residue at $i$ by
+applying Theorem 1.4 to see
+\begin{align*}
+  \res_i f &= \lim_{z\to i} \frac{1}{n!}\frac{d^n}{dz^n}
+  \left((z-i)^{n+1}\cdot
+    \frac{1}{(1+z^2)^{n+1}}\right) \\
+  &= \lim_{z\to i} \frac{1}{n!}\frac{d^n}{dz^n}\frac{1}{(z+i)^{n+1}} \\
+  &= \lim_{z\to i} \frac{(-1)^n(2n)!}{(n!)^2}\frac{1}{(z+i)^{2n+1}} \\
+  &= \frac{(2n)!}{(2^nn!)^2}\cdot\frac{1}{2i} \\
+  &= \frac{1\cdot 3\cdot 5\cdots (2n-1)}{2\cdot 4\cdot 6 \cdots
+    (2n)}\cdot\frac {1}{2i}
+\end{align*}
+We now estimate the integral of $f$ over the arc $C_R$ by
+\[
+\left|\int_{C_R} \frac{1}{(1+z^2)^{n+1}}dz\right| \leq
+\int_0^\pi\left|\frac{iRe^{i\theta}}
+  {1+R^{2(n+1)}e^{2(n+1)i\theta}}\right|d\theta \leq \frac{R\pi}{R^{2(n+1)}+1}
+\]
+Letting $R\to\infty$ forces the integral of $f$ over $C_R$ to 0. As a
+result the residue formula gives
+\[
+\int_{-\infty}^\infty \frac{1}{(1+x^2)^{n+1}}dx = 2\pi
+i\left(\frac{1\cdot 3\cdot 5\cdots (2n-1)}{2\cdot 4\cdot 6 \cdots
+    (2n)}\cdot\frac {1}{2i}\right) = \frac{1\cdot 3\cdot 5\cdots
+  (2n-1)}{2\cdot 4\cdot 6 \cdots (2n)}\cdot \pi
+\]
+
+\exercise{3.8.10}
+
+We need to see that when $a > 0$ that
+\[
+\int_{-\infty}^\infty \frac{\log x}{(x^2+a^2)}dx = \frac{\pi}{2a}\log a
+\]
+In this case we will consider the function
+\[
+f(z) = \frac{\log z}{z^2+a^2}
+\]
+Where we look at a branch of the logarithm corresponding to $-\pi/2 \leq
+\theta \leq 3\pi/2$. Then we integrate over the ``indented semicircle''
+contour as seen below.
+\begin{figure}[]
+  \centering
+  \begin{tikzpicture}
+    \node[below] (O) at (0,0) {};
+    \node[below] (LR) at (-1.5,0) {$-R$};
+    \node[below] (RR) at (1.5,0) {$R$};
+    \node[below] (LE) at (-.4,0) {$-\epsilon$};
+    \node[below] (RE) at (.4,0) {$+\epsilon$};
+    \node[above] (GR) at (1,1.3) {$C_R$};
+    \node[above] (GE) at (.3,.3) {$C_\epsilon$};
+    \draw[->] (1.5,0) arc (0:90:1.5);
+    \draw (0,1.5) arc (90:180:1.5);
+    \draw (.4,0) arc (0:90:.4);
+    \draw[<-] (0,.4) arc (90:180:.4);
+    \draw[->] (-1.5,0) -- (-.95,0);
+    \draw (-.95,0) -- (-.4,0);
+    \draw[->] (.4,0) -- (.95,0);
+    \draw (.95,0) -- (1.5,0);
+    %\draw (-.4,0) -- (-.15,0);
+    %\draw[<->] (-.15,0) -- (.15,0);
+    %\draw (.15,0) -- (.4,0);
+  \end{tikzpicture}
+  \caption{The ``indented semicircle''.}
+\end{figure}
+
+We begin by esitmating the integral over the arc $C_R$
+\[
+\left|\int_{C_R}\frac{\log z}{z^2+a^2}dz\right| \leq \int_0^\pi
+\left|\frac{iRe^{i\theta}\log (Re^{i\theta})}{R^2e^{2i\theta} +
+    a^2}\right|d\theta \leq \frac{R\pi\log R}{R^2 + a^2}
+\]
+Letting $R \to \infty$ send the integral to zero.
+
+Along the other curve, $C_\epsilon$, we see that
+\[
+\left|\int_{C_\epsilon}\frac{\log z}{z^2+a^2}dz\right| \leq \int_0^\pi
+\left|\frac{i\epsilon e^{i\theta}\log (\epsilon
+    e^{i\theta})}{\epsilon^2e^{2i\theta} + a^2}\right|d\theta \leq
+\frac{\epsilon\pi\log \epsilon}{\epsilon^2 + a^2}
+\]
+We then note that
+\[
+\lim_{\epsilon \to 0} \frac{\epsilon\pi\log\epsilon}{\epsilon^2 + a^2} = 0
+\]
+by L'H\^{o}pital's rule.
+
+Integrating along the real parts of the contour gives
+\begin{align*}
+  \int_{-R}^{-\epsilon} \frac{\log x}{x^2 + a^2}dx + \int_\epsilon^R
+  \frac{\log x}{x^2 + a^2}dx &= \int_\epsilon^R\frac{\log x +\log
+    -x}{x^2
+    + a^2}dx \\
+  &= 2\int_\epsilon^R \frac{\log x}{x^2 + a^2}dx + i\pi\int_\epsilon^R
+  \frac{dx}{x^2 + a^2}
+\end{align*}
+
+Now we compute the residues of $f$ in the upper half plane to apply
+the residue formula. The only poles are at $z = \pm ia$ and the only
+one in the upper half plane is $z = ia$. We compute the residue by
+evaluating
+\[
+\lim_{z \to ia}(z-ia)\frac{\log z}{(z-ia)(z+ia)} = \lim_{z \to
+  ia}\frac{\log z}{(z+ia)} = \frac{\log ia}{2ia} = \frac{\pi}{4a} +
+\frac{\log a}{2ia}
+\]
+
+Recall from calculus that
+\[
+\int_0^\infty \frac{dx}{x^2+a^2} =
+\frac{\tan^{-1}(x/a)}{a}\Bigg|_0^\infty = \frac{2\pi}{a}
+\]
+We then send $R\to\infty$ and $\epsilon \to 0$ then use the above in
+conjunction with the residue formula to see that
+\[
+\int_0^\infty \frac{\log x}{x^2+a^2} = \frac{1}{2}\left(2\pi
+  i\left(\frac{\pi}{4a} + \frac{\log a}{2ia}\right) -
+  \frac{i\pi^2}{2a}\right) = \frac{\pi\log a}{2a}
+\]
+
+\end{document}

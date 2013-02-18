@@ -1,0 +1,331 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes, shapes.geometric, shapes.symbols,
+  shapes.arrows, shapes.multipart, shapes.callouts, shapes.misc}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 2}
+\rhead{\today}
+
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+
+\exercise{2.6.2}
+
+We want to show
+\[
+\int_0^\infty \frac{\sin x}{x}dx = \frac{\pi}{2}
+\]
+Consider the integral
+\[
+\frac{1}{2i}\int_{-\infty}^\infty \frac{e^{ix}}{x}dx =
+\frac{1}{2i}\int_{-\infty}^\infty \frac{i\sin x}{x}dx +
+\int_{-\infty}^\infty \frac{\cos x}{x}
+\]
+Because $\cos x$ is even and $\sin x$ is odd we see
+\[
+\frac{1}{2i}\int_{-\infty}^\infty \frac{i\sin x}{x}dx +
+\frac{1}{2i}\int_{-\infty}^\infty \frac{\cos x}{x} =
+\frac{1}{2i}\int_{-\infty}^\infty \frac{i\sin x}{x} = \int_0^\infty
+\frac{\sin x }{x}
+\]
+We will evaluate this on the contour
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    \node[below] (O) at (0,0) {};
+    \node[below] (LR) at (-1.5,0) {$-R$};
+    \node[below] (RR) at (1.5,0) {$R$};
+    \node[below] (LE) at (-.4,0) {$-\epsilon$};
+    \node[below] (RE) at (.4,0) {$+\epsilon$};
+    \node[above] (GR) at (1,1.3) {$\gamma_R^+$};
+    \node[above] (GE) at (.3,.3) {$\gamma_\epsilon^+$};
+    \draw[->] (1.5,0) arc (0:90:1.5);
+    \draw (0,1.5) arc (90:180:1.5);
+    \draw (.4,0) arc (0:90:.4);
+    \draw[<-] (0,.4) arc (90:180:.4);
+    \draw[->] (-1.5,0) -- (-.95,0);
+    \draw (-.95,0) -- (-.4,0);
+    \draw[->] (.4,0) -- (.95,0);
+    \draw (.95,0) -- (1.5,0);
+    \draw (-.4,0) -- (-.15,0);
+    \draw[<->] (-.15,0) -- (.15,0);
+    \draw (.15,0) -- (.4,0);
+  \end{tikzpicture}
+  \caption{Contour of integration}
+  \label{fig:1}
+\end{figure}
+
+We apply Cauchy's theorem to see that
+\[
+\int_{\gamma_R^+} \frac{e^{iz}}{z}dz + \int_{-R}^{-\epsilon}
+\frac{e^{ix}}{x}dx + \int_{\gamma_R^+} \frac{e^{iz}}{z}dz +
+\int_{\epsilon}^{R} \frac{e^{ix}}{x}dx = 0
+\]
+Then we observe
+\[
+\int_{\gamma_R^+} \frac{e^{iz}-1}{z}dz =
+\int_{\gamma_R^+}\frac{e^{iz}}{z}dz \leq
+\left|\int_{\gamma_R^+}\frac{e^{iz}}{z}dz\right|
+\]
+We estimate the last term
+\[
+\left|\int_{\gamma_R^+}\frac{e^{iz}}{z}dz\right| = \left|\int_{0}^\pi
+  \frac{e^{iRe^{i\theta}}}{Re^{i\theta}}iRe^{i\theta}d\theta\right|
+\leq \left|i\int_0^\pi e^{iR\cos\theta}e^{-R\sin \theta}d\theta\right|
+\]
+Now estimate
+\[
+\left|i\int_0^\pi e^{iR\cos\theta}e^{-R\sin \theta}d\theta\right| \leq
+\left|i\int_0^\pi e^{-R\sin\theta}d\theta\right|
+\]
+Note that if $\theta \in (0,\pi)$ then $e^{\sin\theta} > 1$, which can
+be seen by observing that $\sin\theta > 0$ in $(0,\pi)$ and then
+applying the esponential function to both sides of the inequality. So
+\[
+\left|i\int_0^\pi e^{-R\sin\theta}d\theta\right| \leq i\pi
+\sup_{\theta \in (0,\pi)}\left|(e^{\sin\theta})^{-R}\right| \leq i\pi
+(1+\epsilon)^{-R}
+\]
+Letting $R\to \infty$ shows that the integral goes to $0$. This means
+\[
+\int_{-R}^{-\epsilon} \frac{e^{ix}}{x}dx + \int_{\epsilon}^{R}
+\frac{e^{ix}}{x}dx = - \int_{\gamma_\epsilon^+} \frac{e^{iz}}{z}dz
+\]
+Now observe that
+\[
+\frac{e^{iz}}{z} = \frac{\sum_{n=1}^\infty\frac{(iz)^n}{n!}}{z} =
+\frac{1 + O(z)}{z} = \frac{1}{z} + O(1)
+\]
+So that we have
+\[
+-\int_{\gamma_\epsilon^+} \frac{e^{iz}}{z}dz \approx
+-\int_{\gamma_\epsilon^+} \frac{1}{z}dz = -\int_\pi^0 \frac{i\epsilon
+  e^{i\theta}}{\epsilon e^{i\theta}}d\theta = \int_0^\pi id\theta =
+\pi i
+\]
+Letting $\epsilon \to 0$ and $R \to \infty$ gives that
+\[
+\int_{-\infty}^\infty \frac{\sin x}{x}dx = \pi i
+\]
+We then apply the original identity (dividing by $2i$) to see that
+\[
+\int_{0}^\infty \frac{\sin x}{x}dx = \frac{\pi}{2}
+\]
+{
+\footnotesize{Note: I think the hint in the book is a typo because
+ the extra $-1$ in the numerator interferes with the limiting computation.
+}}
+
+\exercise{2.6.6}
+
+There are two cases
+\begin{enumerate}
+\item $w$ is in the interior of $T$.
+\item $w$ is on the boundary of $T$.
+\end{enumerate}
+We treat both individually. Suppose that $w$ is an interior point of
+$T$. Then we will integrate around a ``keyhole'' toy contour as
+outlined on page 42 of the text. In this case we let the width of the
+``corridor'' be $\epsilon$ for any choice of $\epsilon >
+0$. Consequently, we can apply Cauchy's theorem to see that for any
+$\epsilon > 0$ the integral about the contour is zero. So we only need
+to deal with the small disk that forms around $w$. Because $f$ is
+bounded near $w$ we can make the estimate
+\[
+\left| \int_{\gamma_\epsilon} f(z)dz\right| \leq
+\int_{\gamma_\epsilon}|f(z)|dz \leq \int_{0}^{2\pi} M\epsilon
+e^{i\theta}d\theta \leq \epsilon 2M\pi
+\]
+So the integral around the inner loop goes to zero as $\epsilon \to 0$.
+
+If $w$ is on the boundary of $T$. Then we choose a slightly different
+contour: instead of a ``corridor'' we just use a semicircle around
+$w$. This is analogous to the the construction on page 44 of the text,
+except the contour is cut out of a triangle instead of a larger
+semicircle. Again, we apply Cauchy's theorem to see that the integral
+around the whole contour is zero as $\epsilon \to 0$ by estimating
+again. We make the same estimate as before
+\[
+\left| \int_{\gamma_\epsilon} f(z)dz\right| \leq
+\int_{\gamma_\epsilon}|f(z)|dz \leq \int_{0}^{\pi} M\epsilon
+e^{i\theta}d\theta \leq \epsilon M\pi
+\]
+Which goes to zero. Hence, the integral around the entire contour is zero.
+
+So the claim holds in both cases, and therefore is $w$ is any element
+of $T$ and $f$ is bounded in a neighbor of $w$ then
+\[
+\int_T f(z)dz = 0
+\]
+
+\exercise{2.6.11}
+
+\begin{enumerate}
+\item[\textbf{(a)}] We need to show that when $0 < R < R_0$ and $|z| <
+  R$ that
+\[
+f(z) = \frac{1}{2\pi}\int_0^{2\pi}
+f(Re^{i\varphi})\real\left(\frac{Re^{i\varphi} +
+    z}{Re^{i\varphi}-z}\right)d\varphi
+\]
+We begin with the right hand side, multiplying by the conjugate to
+separate and get
+\begin{align*}
+  \frac{1}{2\pi}\int_0^{2\pi}
+  f(Re^{i\varphi})\real\left(\frac{Re^{i\varphi} +
+      z}{Re^{i\varphi}-z}\right)d\varphi &=
+  \frac{1}{4\pi}\int_0^{2\pi}
+  f(Re^{i\varphi})\real\left(\frac{Re^{i\varphi} + z}{Re^{i\varphi}-z}
+    + \frac{Re^{-i\varphi} +
+      \bar{z}}{Re^{-i\varphi}-\bar{z}}\right)d\varphi \\
+  &= \frac{1}{4\pi}\int_0^{2\pi}
+  f(Re^{i\varphi})\real\left(2\frac{Re^{i\varphi}}{Re^{i\varphi}-z} -
+    \frac{2\bar{z}}{\bar{z} - Re^{-i\varphi}}\right)d\varphi
+\end{align*}
+Now we distribute and break up the computation as follows
+\begin{align*}
+  &\frac{1}{4\pi}\int_0^{2\pi}
+  f(Re^{i\varphi})\real\left(2\frac{Re^{i\varphi}}{Re^{i\varphi}-z} -
+    \frac{2\bar{z}}{\bar{z} - Re^{-i\varphi}}\right)d\varphi\\ &=
+  \frac{1}{2\pi i}\int_0^{2\pi}
+  f(Re^{i\varphi})\frac{iRe^{i\varphi}}{Re^{i\varphi}-z}d\varphi +
+  \frac{1}{2\pi}\int_0^{2\pi}
+  f(Re^{i\varphi})\frac{iRe^{i\varphi}}{Re^{i\varphi} - R^2\bar{z}^{-1}}d\varphi
+\end{align*}
+Now observe that we can apply the Cauchy integral formula to see
+\[
+f(z) = \frac{1}{2\pi i}\int_0^{2\pi}
+  f(Re^{i\varphi})\frac{iRe^{i\varphi}}{Re^{i\varphi}-z}d\varphi
+\]
+Then we note that
+\[
+\frac{1}{2\pi}\int_0^{2\pi}
+f(Re^{i\varphi})\frac{iRe^{i\varphi}}{Re^{i\varphi} -
+  R^2\bar{z}^{-1}}d\varphi = 0
+\]
+is an analytic function on the interior of $|z| < R$
+
+\item[\textbf{(b)}] We begin by computing
+\[
+\frac{Re^{i\gamma}+r}{Re^{i\gamma}-r} = \frac{R\cos\gamma +
+  iR\sin\gamma + r}{R\cos\gamma + iR\sin\gamma - r}
+\]
+Now rationalize the denominator to get
+\[
+\frac{R\cos\gamma + iR\sin\gamma + r}{R\cos\gamma + iR\sin\gamma - r}
+= \frac{(R\cos\gamma + iR\sin\gamma + r)(R\cos\gamma + iR\sin\gamma -
+  r)}{(R\cos\gamma - r)^2 + R^2\sin^2\gamma}
+\]
+We do the multiplication to see
+\[
+\frac{(R\cos\gamma + iR\sin\gamma + r)(R\cos\gamma + iR\sin\gamma -
+  r)}{(R\cos\gamma - r)^2 + R^2\sin^2\gamma} = \frac{(R^2\cos^2\gamma
+  + R^2\sin^2\gamma - r^2)-i(2Rr\sin\gamma)}{R^2 -2Rr\cos\gamma + r^2}
+\]
+Taking the real part confirms that
+\[
+\real\left(\frac{Re^{i\gamma}+r}{Re^{i\gamma}-r}\right) = \frac{R^2 -
+  r^2}{R^2 -2Rr\cos\gamma + r^2}
+\]
+\end{enumerate}
+
+\exercise{2.6.12}
+\begin{enumerate}
+\item[\textbf{(a)}] Following the hint, we recall that $f'(z) =
+2\partial{u}/\partial{z}$. Consider $g(z) =
+2\partial{u}{z}$. We want to show that $g$ is holomorphic. Indeed,
+observe that
+\[
+\der{g}{\bar{z}} = 2\der{u}{\bar{z}}\der{u}{z} = 0
+\]
+by the equality of mixed partials. Hence, $g$ is holomorphic.
+
+Now we apply Theorem 2.2.1 to see that $g$ must have a primitive, say
+$f$. Then we compute
+\[
+\der{\mathrel{\text{Re}}(f)}{z} = \frac{1}{2}\der{f}{z} = \frac{1}{2}g
+= \der{u}{z}
+\]
+As a result, $\mathrel{\text{Re}}(f)$ differs from $u$ by some real
+constant $k$. Hence, $f(z)$ is the desired function.
+
+\item[\textbf{(b)}] We apply the previous exercise (11) to the function
+\[
+f(z) = u(z) + iv(z)
+\]
+So we get
+\[
+f(z) = \frac{1}{2\pi}\int_0^{2\pi} (u(e^{i\theta} +
+iv(e^{i\theta}))\mathrel{\text{Re}}\left(\frac{e^{i\theta}+z}
+  {e^{i\theta}-z}\right)d\theta
+\]
+Now we apply \textbf{(a)} to separate the real part and see
+\begin{align*}
+  u(re^{i\varphi}) &= \frac{1}{2\pi}\int_0^{2\pi}
+  u(e^{i\theta})\mathrel{\text{Re}}\left(\frac{e^{i\theta} +
+      re^{i\varphi}}{e^{i\theta} - re^{i\varphi}}\right)d\theta \\
+  &= \frac{1}{2\pi}\int_0^{2\pi}
+  u(e^{i\theta})\mathrel{\text{Re}}\left(\frac{e^{i(\theta - \varphi)
+      } +
+      r}{e^{i(\theta -\varphi}- r}\right)d\theta \\
+  &= \frac{1}{2\pi}\int_0^{2\pi}
+  u(e^{i\theta})\frac{1-r^2}{1-2r\cos(\varphi - \theta)+r^2}d\theta\\
+  &= \frac{1}{2\pi}\int_0^{2\pi} P_r(\varphi - \theta)u(e^{i\theta)})d\theta
+\end{align*}
+as desired.
+\end{enumerate}
+
+\end{document}
