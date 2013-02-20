@@ -1,0 +1,437 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 4}
+\rhead{\today}
+
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{3.8.13}
+
+Consider the function $g(z) = (z-z_0)f(z)$. By the assumptions on $f$
+we see that
+\[
+\lim_{z\to z_0} |g(z)| \leq \lim_{z\to z_0}
+A|z-z_0|\cdot|z-z_0|^{-1+\epsilon} = \lim_{z\to z_0}A|z-z_0|^{\epsilon} = 0
+\]
+Hence, $g$ is bounded in $D_r(z_0)$ and so the singularity of $g$ is
+removable. We gan then extend $g$ to an analytic function on all of
+$D_r(z_0)$. Hence, because $g(z_0) = 0$ we can write $g(z) =
+(z-z_0)h(z)$ in a neighborhood of $z_0$. By definition, we must have
+that $f(z) = h(z)$ in a deleted neighborhood of $z_0$. By setting
+$f(z_0) = h(z_0)$ we extend $f$ to a holomorphic function on all of
+$D_r$. Thus, the singularity at $z_0$ is removable.
+
+\exercise{3.8.14}
+
+Let $f$ be an entire, injective function and consider $g(z) =
+f(1/z)$. It is clear that $g$ is holomorphic in the punctured plane
+because $f$ is entire. We will study the type of singularity that $g$
+can have at the origin. We see that $f$ cannot have a removable
+singularity at the origin because that would imply that $f$ is bounded
+and hence, constant. Thus, $f$ could not be injective.
+
+Moreover, $f$ cannot have an essential singularity at the
+origin. Consider a punctured neighborhood of the origin $N_R(0)$ and a
+$z \in N_R(0)$. We then look at a neighborhood of $z$ with radius less
+than $|z|$, say $N_r(z)$. If we look at the image $g(N_r(z))$, the
+Open Mapping theorem guarantees that this contains a neighborhood of
+the point $g(z)$. But the Casorati-Weierstrass theorem says that the
+image of $N_R(0)$ is dense in $\C$ and therefore has non-empty
+intersection with the neighborhood of $g(z)$. So $f$ could not have
+been injective.
+
+Consequently, the singularity of $g$ at the origin must be a pole. We
+can then write
+\[
+g(z) = \frac{a_m}{z^m} + \frac{a_{m-1}}{z^{m-1}} + \cdots +
+\frac{a_1}{z} + h(z)
+\]
+Where $h$ is holomorphic at the origin. We then see this implies that
+\[
+f(z) = a_mz^m + a_{m-1}z^{m-1} + \cdots + a_1z + h(1/z)
+\]
+This function cannot be holomorphic unless $h$ is bounded at infinity,
+and hence constant. So $f$ is a polynomial.
+
+To see that $f$ must be linear, we note that $f$ must be of the form
+\[
+f(z) = a(z-z_0)^m
+\]
+because if $f$ had multiple distinct roots, it would not be
+injective. To see that $m = 1$ we observe that if not, then we can
+consider the values of $f$ on a unit disk centered at the root,
+$z_0$. We see that $f(z_0 + 1) = f(z_0 + e^{2\pi i/m})$, so that $f$
+would not be injective. Hence, $m = 1$ and we see that $f(z) = a(z -
+z_0)$. Finally, we observe that $a \neq 0$ because otherwise $f$ would
+be constant. This completes the proof.
+
+\exercise{3.8.15}
+\begin{enumerate}
+\item[\textbf{(d)}] Suppose that $\real(f)$ is bounded and so
+  $|\real(f)| < M|$ for some $M \geq 0$. Consider the function $g(z) =
+  e^{f(z)}$. $g$ is entire and $|g| = e^{\real(f)}$ is bounded by
+  $e^M$. Because $g$ is bounded and entire, it must be a constant, say
+  $k$. So that $f = \log k$ everywhere. Although the logarithm is
+  multi-valued we note that the values differ by a discrete amount
+  $2\pi i$, but $f$ is continuous, and so it must be constant.
+\end{enumerate}
+
+\exercise{3.8.17}
+\begin{enumerate}
+\item[\textbf{(a)}] Suppose that $f$ is holomorphic in an open set
+  containing the closed unit disk and that $|f(z)| = 1$ whenever $|z|
+  = 1$. We will show that $f(z) = w_0$ has a root for every $w_0 \in
+  \D$. We will instead show that $f(z) = 0$ has a root, because by
+  Rouch\'{e}'s theorem $f(z)$ and $f(z) -w_0$ have the same number of
+  zeros in the interior of $\D$ (because $w_0 < 1$).
+
+  If $f$ is non-zero then $g(z) = 1/f(z)$ is holomorphic in the disk
+  and so $|g(z)| \leq 1$ by the maximum modulus principle. This
+  implies that $|f(z)| \geq 1$ for $z \in \D$. Consider the image of
+  $f$ on the boundary of $\D$, because $|f(z)| = 1$ for $z
+  \in \partial\D$ the Open Mapping theorem implies that the image
+  $f(N_r(z))$ contains an open ball about $f(z)$. Because $|f(z)| =
+  1$, any neighborhood contains points in the interior of $\D$, so
+  $|w| < 1$. But this contradicts that $|f(z)| \geq 1$ for all $z \in
+  \D$. So $f(z) = 0$ must have a root in $\D$.
+
+  We then complete the argument by noting that $f(z) = w_0$ must have
+  a root for each $w_0$ by Rouch\'{e}'s theorem and so the image of
+  $f$ contains the unit disk.
+\item[\textbf{(b)}] Now we know that $|f(z)| \geq 1$ whenever $|z| =
+  1$ and that there is some point $z_0 \in \D$ such that $|f(z)| <
+  1$. We apply Rouch\'{e}'s theorem again to see that $f(z)$ and $f(z)
+  - w$ have the same number of roots in the disk for all $w \in
+  \D$. Then note that $f(z) - f(z_0)$ has a root and by the above,
+  this implies that $f(z)$ has a root for all $w \in \D$. So the image
+  of $f$ contains $\D$.
+\end{enumerate}
+
+\exercise{3.8.19}
+\begin{enumerate}
+\item[\textbf{(a)}] Suppose that $u$ attained a maximum at
+  $z_0$. Consider the complex function $f(z) = u + iv$, where $v$ is
+  the conjugate harmonic to $u$. Then $f$ is holomorphic at $z_0$ and
+  is therefore an open mapping in a neighborhood of $z_0$. Thus, the
+  image of any neighborhood of $z_0$ under $f$ contains a neighborhood
+  of $f(z_0)$. But this implies that there are points $f(w)$ in this
+  neighborhood such that $\real(f(w)) > \real(f(z_0))$, which means
+  that $u(w) > u(z_0)$ and so $z_0$ was not a local maximum.
+\item[\textbf{(b)}] This is a direct consequence of part
+  \textbf{(a)}. Because $u$ is harmonic on $\Omega$ it is continuous
+  there and also continuous on its closure, which is assumed compact,
+  thus it must attain its maximum in $\overline{\Omega}$. However, by
+  \textbf{(a)} it cannot achieve its maximum on the interior,
+  $\Omega$, and therefore must achieve the maxima on the
+  boundary. This is equivalent to saying that
+  \[
+  \sup_{z\in \Omega} |u(z)| \leq \sup_{z \in \overline{\Omega} -
+    \Omega} |u(z)|
+  \]
+\end{enumerate}
+
+\exercise{3.8.22}
+
+Suppose that $f$, holomorphic in $\D$, could extend continuously to a
+function such that $f(z) = 1/z$ for $z \in \partial\D$. Because $\D$
+is simply connected we see that $\int_\gamma f(z)dz = 0$ for any
+closed $\gamma$ in $\D$. In particular, we should have that
+$\int_{\partial\D} f(z)dz = 0$ but we know that
+\[
+\int_{\partial\D}f(z)dz = \int_{\partial\D} \frac{1}{z}dz = 2\pi i
+\]
+This contradiction shows that no continuous extension of $f$ could
+have existed.
+
+\exercise{4.4.3}
+
+We want to verify
+\[
+\frac{1}{\pi}\int_{-\infty}^\infty \frac{a}{a^2+x^2}e^{-2\pi ix\xi}dx
+= e^{-2\pi a|\xi|}
+\]
+We will show this using contour integration. Consider the function
+\[
+f(z) = \frac{a}{a^2+z^2}e^{-2\pi iz\xi}
+\]
+This function has a simple pole at $z = \pm ia$. We consider the case
+$\xi > 0$ and integrate over the semicircle of radius $R$ in the upper
+half-plane, denoted by $C_R$. Let $\gamma_R$ be the arced part of the
+semicircle, and $I_R$ be the interval $[-R,R]$. Then the residue
+theorem guarantees that
+\[
+\int_{\gamma_R}\frac{a}{a^2+z^2}e^{-2\pi iz\xi}dz +
+\int_{I_R}\frac{a}{a^2+x^2}e^{-2\pi ix\xi}dx = 2\pi i\res(f,ia)
+\]
+We will first show that the integral over $\gamma_R \to 0$ as $R \to
+\infty$. We note that
+\begin{align*}
+  \left|\int_{\gamma_R}\frac{a}{a^2+z^2}e^{-2\pi iz\xi}dz\right| &=
+  \int_0^\pi\left|\frac{a}{a^2+R^2e^{2i\theta}}e^{-2\pi iRe^{i\theta}\xi}iRe^{i\theta}\right|d\theta \\
+  &\leq \int_0^\pi \left|\frac{aR}{a^2+R^2}\right|d\theta \\
+  &\leq \frac{aR\pi}{a^2+R^2}
+\end{align*}
+Which goes to zero as $R \to \infty$.
+
+Now we compute the residue at $z = ia$
+\[
+\lim_{z\to ia} (z-ia)\cdot \frac{a}{(z+ia)(z-ia)}e^{-2\pi iz\xi} =
+\frac{1}{2i}e^{2\pi a\xi}
+\]
+This formula gives that
+\[
+\int_{-\infty}^\infty \frac{a}{a^2+x^2}e^{-2\pi ix\xi}dx = 2\pi i\cdot
+\frac{1}{2i}e^{2\pi a\xi} = \pi e^{2\pi a\xi}
+\]
+as desired. The case for $\xi \leq 0$ is the same, reflecting the
+contour across the real axis.
+
+To see that
+\[
+\int_{-\infty}^\infty e^{-2\pi a|\xi|}e^{2\pi i\xi x}d\xi =
+\frac{1}{\pi}\frac{a}{a^2+x^2}
+\]
+We apply the previous part and break up the integral to see
+\begin{align*}
+  \int_{-\infty}^\infty e^{-2\pi a|\xi|}e^{2\pi i\xi x}d\xi &=
+  \int_{-\infty}^0 e^{-2\pi a(-\xi) + 2\pi i(-\xi) x}d\xi +
+  \int_0^\infty
+  e^{-2\pi a\xi+ 2\pi i\xi x}d\xi \\
+  &= \int_{-\infty}^0 e^{2\pi\xi (a + ix)}d\xi + \int_0^\infty
+  e^{2\pi i\xi(-a + ix)}d\xi \\
+  &= \frac{1}{2\pi}\frac{1}{a+ix} + \frac{1}{2\pi}\frac{1}{a-ix} \\
+  &= \frac{1}{\pi}\frac{a}{a^2+x^2}
+\end{align*}
+
+\exercise{4.4.4}
+
+We want to encapsulate of the roots of $Q$ inside a disk so that the
+poles of the function
+\[
+f(z) = \frac{e^-2\pi iz\xi}{Q(z)}
+\]
+will occur at precisely the roots of $Q$. The nature of each pole
+depends on the factorization of $Q$ and what multiplicity the root is
+at that point. We will be integrating over a disk of radius $R$ in the
+plane, $C_R$. We estimate the value of the integral via
+\[
+\left|\int_{C_R} \frac{e^-2\pi iz\xi}{Q(z)}dz\right| \leq
+\int_0^{2\pi}\left|\frac{e^-2\pi
+    iRe^{i\theta}\xi}{Q(Re^{\theta})}iRe^{i\theta}\right|d\theta \leq
+O(1/R^{\deg(Q)})
+\]
+Which goes to $0$ as $R \to \infty$. We then see that
+\[
+\sum_i \res(f, z_i) = 0
+\]
+The exact form of each residue depends on the order of the pole at
+each root $z_i$ of $Q$.
+
+\exercise{4.4.6}
+
+This follows from Exercise 4.4.3. We showed that if
+\[
+f(x) = \frac{1}{\pi}\frac{a}{a^2+x^2}
+\]
+then its Fourier transform is
+\[
+\hat{f}(\xi) = e^{-2\pi a|\xi|}
+\]
+Applying the Poisson summation forumula immediately shows that
+\[
+\frac{1}{\pi}\sum_{n=-\infty}^\infty \frac{a}{a^2+n^2} =
+\sum_{n=-\infty}^\infty e^{-2\pi a|n|}
+\]
+We then observe that because the sum is symmetric we note that
+\[
+\sum_{n=-\infty}^\infty e^{-2\pi a|n|} = 2\sum_{n=0}^\infty e^{-2\pi
+  a|n|} - 1 = \frac{2}{1-e^{-2\pi a}} - 1 = \frac{1 + e^{-2\pi
+    a}}{1-e^{-2\pi a}} = \frac{e^{\pi a} + e^{-\pi a}}{e^{\pi
+    a}-e^{-\pi a}} = \coth \pi a
+\]
+
+\exercise{4.4.7}
+\begin{enumerate}
+\item[\textbf{(a)}] First we compute the Fourier transform of
+  \[
+  f(x) = (\tau +z)^{-k}
+  \]
+  We fix a $\xi \leq 0$ and use contour integration (around a
+  semicircle of radius $R$, $C_R$, in the lower half-plane). Note that
+  if $k \geq 2$ the function $f(z)e^{-2\pi iz\xi}$ is analytic in
+  $C_R$
+  \begin{align*}
+    0 &= \int_{C_R} f(z)e^{-2\pi i z\xi}dz \\
+    &= \int_{-\infty}^\infty f(x)e^{-2\pi ix\xi}dx +
+    \int_{\gamma_R}f(z)e^{-2\pi iz\xi}dz
+  \end{align*}
+  We then compute
+  \begin{align*}
+    \left|\int_{\gamma_R}f(z)e^{-2\pi iz\xi}dz\right| &=
+    \left|\int_0^\pi
+      f(Re^{i\theta})e^{-2\pi iRe^{\theta}\xi}iRe^{i\theta}d\theta\right| \\
+    &\leq \int_0^\pi\left|\frac{iRe^{i\theta}e^{-2\pi
+        iRe^{\theta}\xi}}{(Re^{i\theta} +\tau)^k}\right|d\theta \\
+    &\leq \frac{R\pi}{(|R| + |\tau|)^k}
+  \end{align*}
+  Letting $R \to \infty$ shows that this integral goes to zero. This
+  implies that
+  \[
+  \int_{-\infty}^\infty f(x)e^{-2\pi ix\xi}dx = 0
+  \]
+  If $\xi > 0$ then $f(z)e^{-2\pi iz\xi}$ has a pole at $-\tau$ of
+  order $k$ so that
+  \[
+  \hat{f}(\xi) = \int_{-\infty}^\infty \frac{e^{-2\pi i x\xi}}{(\tau +
+    x)^k}dx = 2\pi i\res(f,-\tau)
+  \]
+  We compute the residue using Theorem 3.1.4 to see that
+  \[
+  \res(f,-\tau) = \frac{(2\pi i)^k}{(k-1)!}\xi^{k-1}e^{2\pi iz\xi}
+  \]
+  So that
+  \[
+  \hat{f}(\xi) = \frac{(2\pi i)^k}{(k-1)!}\xi^{k-1}e^{2\pi ix\xi}
+  \]
+  We then apply the Poisson summation formula to see that
+  \[
+  \sum_{n=-\infty}^\infty \frac{1}{(\tau + n)^k} = \frac{(2\pi
+    i)^k}{(k-1)!}\sum_{m=1}^\infty m^{k-1}e^{2\pi im\tau}
+  \]
+\item[\textbf{(b)}] We set $k=2$ in the result of part \textbf{(a)} to
+  see that
+  \begin{align*}
+    \sum_{n=-\infty}^\infty \frac{1}{(\tau + n)^2} &= (2\pi
+    i)^2\sum_{m=1}^\infty me^{2\pi im\tau} \\
+    &= -4\pi^2\sum_{m=1}^\infty me^{-2\pi im\tau}
+  \end{align*}
+  Consider the series for $|x| < 1$
+  \[
+  \sum_{m=1}^\infty mx^{m-1} = x\frac{d}{dx}\left(\sum_{m=1}^\infty
+    x^m\right) = x \frac{d}{dx}\left(\frac{x}{1-x}\right) =
+  \frac{x}{(1-x)^2}
+  \]
+  We then note that if $\imag(\tau) > 0$ then $|e^{\pm 2\pi im\tau}| <
+  1$ so we can apply the above to see that
+  \[
+  -4\pi^2\sum_{m=1}^\infty me^{-2\pi im\tau} = -4\pi^2\frac{e^{2\pi
+      i\tau}}{(1-e^{2\pi i\tau})^2} = \frac{-4\pi^2}{e^{\pi i\tau} -
+    e^{-\pi i\tau}} = \frac{\pi^2}{\sin^2(\pi\tau)}
+  \]
+\item[\textbf{(c)}] This is true, you can extend this identity to
+  non-integer complex $u$. To see this, we take the hint given in
+  Exercise 3.8.12, which considers the function
+  \[
+  f(z) = \frac{\pi \cot(\pi z)}{(u+z)^2}
+  \]
+  If the poles of this function occur at the integers, which are
+  simple poles, as well as a pole of order 2 at $z = -u$. We compute
+  the residues at each type of pole by evaluating
+  \[
+  \res(f,-u) = \lim_{z\to -u} \frac{d}{dz}\pi\cot(\pi z) =
+  \frac{-\pi^2}{\sin^2(\pi u)}
+  \]
+  At each integral pole we see that
+  \begin{align*}
+    \res(f,n) &= \lim_{z\to n}(z-n)\frac{\pi\cot(\pi z)}{(u+z)^2} \\
+    &= \lim_{z\to n} \frac{\pi(z-n)}{\sin(\pi(z-n))}\cdot
+    \frac{\cot(\pi(z-n))}{(u+z)^2} \\
+    &= \frac{1}{(u+n)^2}
+  \end{align*}
+  Following the hint, we let $C_N$ be the circle of radius $N + 1/2$
+  and we want to verify that
+  \[
+  \int_{C_N} f(z)dz \to 0 \text{ as } N \to \infty
+  \]
+  We then note that for sufficiently large choices of $N$ the
+  conditions $z \in C_N$ and $|\imag z| \leq 1$ imply that $|\real z -
+  n| > \epsilon$ for some $\epsilon > 0$, so that $z$ is bounded away
+  from the poles. We then note that the bound on this set is uniform
+  and so we see that when $z = x + iy$ such that $y \geq 1$ we see
+  \[
+  |\cot (\pi z) = \left| i\frac{e^{iz}+e^{-iz}}{e^{iz}-e^{-iz}} \right|\leq
+    \frac{1 + e^{-2y}}{1-e^{-2y}} \leq \frac{1 + e^{-2}}{1-e^{-2}}
+  \]
+  In the other case when $y \leq -1$ we see that
+  \[
+  |\cot (\pi z)| \leq \frac{1+e^{2y}}{1-e^{2y}}\leq
+  \frac{1+e^{-2}}{1-e^{-2}}
+  \]
+  Hence, $cot(\pi z)$ is bounded for large $N$, say $|\cot(\pi z)|
+  \leq M$ for some $M > 0$. We can then bound the integral via
+  \[
+  \left|\int_{C_N} f(z)dz\right| \leq 2\pi(N + 1/2)\frac{M}{(N+ 1/2)^2 - |u|^2}
+  \]
+  For large enough $N$. Consequently,
+  \[
+  \left|\int_{C_N} f(z)dz\right| \to 0
+  \]
+  as $N \to \infty$.
+
+  Now we apply the residue theorem to see that
+  \[
+  \int_{C_N} f(z)dz = \res(f,-u) + \sum_{n=-\infty}^\infty \res(f,n) = 0
+  \]
+  Plugging in the computed values for the residues gives that
+  \[
+  \sum_{n=-\infty}^\infty \frac{1}{(u+n)^2} = \frac{\pi^2}{\sin^2(\pi u)}
+  \]
+  As claimed.
+\end{enumerate}
+\end{document}
