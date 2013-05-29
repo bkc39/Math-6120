@@ -1,0 +1,255 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 10}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\Ha}{\mathbb{H}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lpnorm}[2]{\|#1\|_{L^{#2}}}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{3.4.16}
+\begin{enumerate}
+\item To see that the Cauchy-Riemann operator
+  \[
+  \partial_{\bar{z}}\frac{1}{2}\left(\der{}{x} + i\der{}{y}\right)
+  \]
+  is elliptic we compute the characteristic polynomial
+  \[
+  P(i\xi) = \frac{1}{2}i\left(\xi_1 + i\xi_2\right)
+  \]
+  Then the triangle inequality immediately implies that
+  \[
+  |\xi| \leq |\xi_1| + |i\xi_2| = \frac{1}{2}|P(\xi)|
+  \]
+  which shows that $\partial_{\bar{z}}$ is elliptic.
+\item To see that $1/\pi z$ is a fundamental solution of
+  $\partial_{\bar{z}}$ first note that because $\frac{1}{|z|} \in
+  L^1_{\text{loc}}$ the function $f(z) = 1/z$ defines a distribution
+  on $\C \cong \R^2$. Moreover, by Theorem 2.9 we know that
+  $\frac{1}{2\pi}\log|x|$ is a fundamental solution of $\Delta$ on
+  $\R^2$. So for any $\varphi \in \mathcal{D}$ we see that
+  \[
+  \frac{1}{2\pi}\int \log|x|\Delta\varphi dxdy = \delta(\varphi) = \varphi(0)
+  \]
+  Because $\Delta = 4\partial_{\bar{z}}\partial{z}$ we see that
+  \[
+  \Delta (\frac{1}{2\pi}\log|x|)(\varphi) = 4\partial_{\bar{z}}
+  (\frac{1}{2\pi}\log|x|)(\partial_{z}\varphi) = 4
+  (\partial_{z}\frac{1}{2\pi}\log|x|)(\partial_{\bar{z}}\varphi)
+  \]
+  But the above is equivalent to the statement that
+  \[
+  (\frac{1}{\pi z})(\partial_{\bar{z}}\varphi) = \partial_{\bar{z}}
+  \frac{1}{\pi z}(\varphi) = \delta(\varphi
+  \]
+  which means that $1/\pi z$ is a fundamental solution of
+  $\partial_{\bar{z}}$.
+\item Suppose that $f$ is continuous and $\partial_{\bar{z}}f = 0$ in
+  the sense of distributions and let $C$ be a simple, closed curve in
+  the plane. Because $\partial_{\bar{z}}$ is elliptic the
+  distribution $U = \frac{1}{\pi z}\ast f$ satisfies
+  $\partial_{\bar{z}} U = f$ by the previous part. We then apply
+  Theorem 2.14 to the distribution $U$ to see that $U$ is in act a
+  $C^{\infty}$ function that satisfies
+  \[
+  \partial_{\bar{z}}\int_C Udz = \partial_{\bar{z}}\int
+  \frac{f(\zeta}{\zeta -z}dz = \int
+  \frac{\partial_{\bar{z}}f(\zeta)}{\zeta -z}dz
+  \]
+  Then because $\partial_{\bar{z}} f = 0$ we have that
+  \[
+  \int_C fdz = \int_C Udz = 0
+  \]
+  So $f$ is analytic by Morera's Theorem. 
+\end{enumerate}
+
+\exercise{3.4.17}
+\begin{enumerate}
+\item To see that $\log |f(z)|$ is locally integrable we begin by
+  recalling that because $f$ is meromorphic it can be written as the
+  quotient of two entire functions $f(z) = g(z)/h(z)$. Then we have
+  the identity
+  \[
+  \log |f(z)| = \log \left|\frac{g(z)}{h(z)}\right| = \log |g(z)| - \log |h(z)|
+  \]
+  Thus, it suffices to show that $\log |g(z)|$ is locally integrable
+  when $g$ is entire.
+
+  In the case that $g$ is an entire function then $g$ admits a
+  factorization
+  \[
+  g(z) = z^m\prod_{i=1}^\infty E_n(z/a_n)
+  \]
+  where the $a_n$ are the roots of $g$ and the $E_n$ are the canonical factors
+  \[
+  E_n(z) = \log (1-z)\sum_{i=1}^\infty \frac{z^k}{k}
+  \]
+  Thus,
+  \[
+  \int \log \left|z^m\prod_{n=1}^\infty E_n(z/a_n)\right|dz \leq \int
+  m + \sum_{n=1}^\infty \log |E_n(z/a_k)|
+  \]
+  So $\log|g(z)|$ is locally integrable if each of the $\log
+  |E_n(z/a_n)|$ is. To verify this we expand
+  \[
+  \log |E_n(z/a_n)| = \log|
+  (1-z/a_k)e^{\sum_{i=1}^\infty a_k^{-i}z^i/i} \leq \log |1-z_k/a_k| +
+\sum_{i=1}^\infty \frac{z^i}{ia_k^i}
+  \]
+  We know that $\log |w|$ is locally integrable, so we only need to
+  consider the integrability of the sum term. Only finitely many of
+  the series above satisfy $|z^i/ia_k^i| > 1/2$ because the otherwise
+  the sequence of roots would have a limit point and the function
+  would be identically zero, which is clearly integrable. So for
+  sufficiently large $k$ we have that
+  \[
+  \int |E_n(z/a_k)| \leq \int \log |1-z_k/a_k| + \int \sum_{i=k}^\infty 2^{-n}
+  \]
+  which is the sum of locally integrable functions and hence locally
+  integrable. For large values of $z/a_k$ we will use the analytic
+  continuation of the usual power series representation for $\log
+  (1+z)$ yielding
+  \[
+  \log (1+z/a_n) + \sum \frac{z^k}{ka_n^k} = -\sum
+  (-1)^n\frac{z^k}{ka_n^k} + \sum \frac{z^k}{ka_n^k} \leq \log |1+z/a_n|
+  \]
+  Which shows that
+  \[
+  \int |E_n(z/a_n)| \leq \int \log |1-z/a_n| < \infty
+  \]
+  for small roots $a_k$ and so each of the $E_n$ is locally integrable
+  and we are done.
+\item 
+\end{enumerate}
+
+\exercise{3.4.18}
+
+The forward direction follows from the homogeneity condition because
+we note that if we differentiate the identity $F_a(\varphi) =
+a^\lambda f(\varphi)$ with respect to $a$ we get
+\begin{align*}
+  \der{}{a} F_a(\varphi) &= \der{}{a} a^\lambda f(\varphi) \\
+  F(\der{}{a} \varphi^a) &= \lambda a^{\lambda -1}F(\varphi) \\
+  F\left(\sum_{i=1}^n x_i \der{\varphi}{x_i}\right) &= \lambda a^{\lambda
+      -1}F(\varphi)
+\end{align*}
+Then we observe that Linearity reduces the left side to
+\[
+F\left(\sum_{i=1}^n x_i \der{\varphi}{x_i}\right) = \sum_{i=1}^n x_i
+F\left(\der{\varphi}{x_i}\right) = \left(\sum_{i=1}^n x_i
+  \der{}{x_j}F\right)(\varphi)
+\]
+Setting $a = 1$ gives
+\[
+\sum_{i=1}^n x_i \der{}{x_j}F = \lambda F
+\]
+as desired.
+
+
+\exercise{3.4.22}
+
+First we will assume that $f \in L^1_{\text{loc}}$ and define $u(x,t) = f(x-t)$
+
+\exercise{3.4.25}
+
+In the forward direction, we suppose that $F$ is a positive
+distribution. Then $F$ in particular is a positive linear functional
+on $\R^d$. We then see that $F$ must in fact be a continuous function
+because each $\varphi$ is supported on a compact set in $\Omega$ and
+so $F$ is bounded hence, it is continuous. Then because $\mathcal{D}$
+is dense in the space of continuous functions with compact support,
+$C_0$, we apply the Hahn-Banach theorem to extend it to a continuous
+function on $C_c$.
+
+Now we need to show that the extension of $F$, call it $\tilde{F}$ is
+positive. Consider a test function $\varphi$ convolved with a sequence
+of mollifiers $\eta_n$. If we set $\varphi_n = \varphi \ast \eta_n$
+then each of the $\varphi_n$ has compact support (because $\varphi$
+does). Because each each of the above have compact support we see that
+$\varphi_n \to \varphi$ uniformly and moreover that
+\[
+\tilde{F}\varphi = \tilde{F}(\lim_{n\to\infty} \varphi_n) =
+\lim_{n\to\infty}\tilde{F}\varphi_n = \lim_{n\to\infty} F\varphi_n
+\geq 0
+\]
+Where the second-to-last equality follows from density. So $\tilde{F}$
+is positive and by the Riesz representation theorem we can find a
+locally finite Borel measure $\mu$ such that 
+\[
+\tilde{F}(\varphi) = \int \varphi(x)d\mu
+\]
+And in particular we see that
+\[
+F(\varphi) = \tilde{F}(\varphi) = \int \varphi(x)d\mu
+\]
+as desired.
+
+For the converse we simply note that a locally finite Borel measure $\mu$ is
+a continuous function in $\Omega$ because it is bounded. Then we use
+the fact that the test function $\varphi$ is non-negative and so the
+distribution associated to the function $\mu$ is positive.
+
+\exercise{3.4.27}
+\begin{enumerate}
+\item
+\item
+\item 
+\end{enumerate}
+\end{document}

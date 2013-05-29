@@ -1,0 +1,299 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 5}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{6.3.5}
+
+We will use the fact that
+\[
+\Gamma(s)\Gamma(1-s) = \frac{\pi}{\sin\pi s}
+\]
+And the following
+\begin{claim}
+  $\overline{\Gamma(s)} = \Gamma(\overline{s})$
+\end{claim}
+\begin{proof}
+  This is clear from the product formula for $\Gamma(s)$. By Theorem
+  6.1.7 we see
+  \[
+  \frac{1}{\Gamma(s)} = e^{\gamma s}s\prod_{n=1}^\infty \left(1 +
+    \frac{s}{n}\right)e^{-s/n}
+  \]
+  Consequently,
+  \[
+  \Gamma(z) = \frac{e^{-\gamma s}}{s}\prod_{n=1}^\infty \left(1 +
+    \frac{s}{n}\right)^{-1}e^{s}{n}
+  \]
+  Then we note that complex conjugates are preserved under products
+  and take the limit of the comjugates of partial products to get that
+  \[
+  \overline{\Gamma(s)} = \Gamma(\overline{s})
+  \]
+\end{proof}
+We can then compute
+\[
+|\Gamma(1/2+it)|^2 = \Gamma(1/2+it)Gamma(1/2-it) =
+\frac{\pi}{\sin\pi(1/2+it)}
+\]
+Then note that $\sin(\theta+\pi/2) = \cos(\theta)$ to see that
+\[
+\frac{\pi}{\sin\pi(1/2+it)} = \frac{\pi}{\cos\pi it} =
+\frac{\pi}{\cosh \pi t} = \frac{2\pi}{e^{\pi t} + e^{-\pi t}}
+\]
+Then
+\[
+|\Gamma(1/2+it)|^2 = \frac{2\pi}{e^{\pi t} + e^{-\pi t}}
+\]
+Taking square roots yields
+\[
+|\Gamma(1/2+it)| = \sqrt{\frac{2\pi}{e^{\pi t} + e^{-\pi t}}}
+\]
+
+\exercise{6.3.7}
+\begin{enumerate}
+\item[\textbf{(a)}] We first observe that
+\begin{align*}
+\Gamma(\alpha)\Gamma(\beta) &= \left(\int_0^\infty
+  e^{-t}t^{\alpha-1}dt\right)\left(\int_0^\infty
+  e^{-s}s^{\beta-1}ds\right) \\
+&= \int_0^\infty\int_0^\infty t^{\alpha-1}s^{\beta-1}e^{-t-s}dtds
+\end{align*}
+Following the hint, we change variables to $s = ur, t = u(1-r)$ and
+compute
+\begin{align*}
+  \int_0^\infty\int_0^\infty t^{\alpha-1}s^{\beta-1}e^{-t-s}dtds &=
+  \int_0^\infty\int_0^1(u(1-r))^{\alpha-1}(ur)^{\beta-1}e^{-u}udrdu \\
+  &= \left(\int_0^\infty
+    u^{\alpha+\beta-1}e^{-u}du\right)\left(\int_0^1
+    r^{\beta-1}(1-r)^{\alpha-1}dr\right) \\
+  &= \Gamma(\alpha+\beta)B(\alpha,\beta)
+\end{align*}
+Dividing on both sides gives
+\[
+B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
+\]
+\item[\textbf{(b)}] This also follows by a change of
+  variable. Inspection of the formula suggests that the thing to do set
+  \[
+  t = \frac{1}{1+u}\tab 1-t = \frac{u}{1+u}
+  \]
+  Consequently, we have that
+  \[
+  dt = \frac{-1}{(1+u)^2}du
+  \]
+  Hence,
+  \begin{align*}
+    B(\alpha,\beta) = \int_0^1 (2-t)^{\alpha-1}t^{\beta-1}dt &=
+    -\int_0^\infty
+    \left(\frac{u}{1+u}\right)^{\alpha-1}\left(\frac{1}{1+u}\right)^{\beta-1}
+    \left(\frac{-1}{(1+u)^2}\right)du\\
+    &= \int_0^\infty \frac{u^{\alpha-1}}{(1+u)^{\alpha+\beta}}du
+  \end{align*}
+  as desired.
+\end{enumerate}
+
+\exercise{6.3.11}
+
+We begin with the function
+\[
+f(z) = e^{az}e^{-e^z}
+\]
+We then recall the definition
+\[
+\hat{f}(\xi) = \int_{-\infty}^\infty f(x)e^{-2\pi ix\xi}dx
+\]
+and then compute
+\[
+\int_{-\infty}^\infty f(x)e^{-2\pi ix\xi}dx = \int_{-\infty}^\infty
+e^{ax}e^{-e^x}e^{-2\pi ix\xi}dx = \int_{-\infty}^\infty e^{x(a-2\pi
+i\xi)}e^{-e^x}dx
+\]
+Then make the change of variable $t = e^x$ so that
+\[
+\int_{-\infty}^\infty e^{x(a-2\pi i\xi)}e^{-e^x}dx =
+\int_{0}^\infty t^{(a-2\pi i\xi)}e^{-t}\frac{dt}{t} =
+\int_{0}^\infty t^{(a-2\pi i\xi -1)}e^{-t}dt
+\]
+Then observe that
+\[
+\Gamma(a - 2\pi i\xi) = \int_{0}^\infty t^{(a-2\pi i\xi -1)}e^{-t}dt
+\]
+So that
+\[
+\hat{f}(\xi) = \Gamma(a - 2\pi i\xi)
+\]
+
+\exercise{6.3.13}
+
+We recall from the textbook that
+\[
+\frac{1}{\Gamma(s)} = e^{\gamma s}s\prod_{n=1}^\infty \left(1 +
+  \frac{s}{n}\right)e^{-s/n}
+\]
+Taking the logarithm yields
+\[
+-\log\Gamma(s) = \log s + \gamma s + \sum_{n=1}^\infty\log\left(1 +
+  \frac{s}{n}\right) - \frac{s}{n}
+\]
+We then note that we can differentiate the sum term by term because
+the convergence is uniform on compact sets that do not contain a
+singularity. We then compute for $s > 0$
+\[
+\frac{d^2}{ds^2}(-\log\Gamma(s)) = \frac{-1}{s^2} + \sum_{n=1}^\infty
+\frac{-1}{(n+s)^2} = \sum_{n=0}^\infty \frac{-1}{(n+s)^2}
+\]
+The right hand side is an analytic function whenever $s$ is not a
+negative integer because the sum converges uniformly in this
+region. If we consider the left hand side to be $(\Gamma'/\Gamma)'$
+then we observe that both functions are analytic, and $\Gamma$ is
+non-vanishing and the formula must hold by analytic continuation.
+
+\exercise{6.3.15}
+
+We suppose that $\real(s) > 1$ and need to show that
+\[
+\zeta(s) = \frac{1}{\Gamma(s)}\int_0^\infty \frac{x^{s-1}}{e^x-1}dx
+\]
+Following the hint, we note that
+\[
+\frac{1}{e^x-1} = \sum_{n=1}^\infty e^{-nx}
+\]
+We then see that
+\[
+\int_0^\infty \frac{x^{s-1}}{e^x-1}dx = \int_0^\infty
+x^{s-1}\sum_{n=1}^\infty e^{-nx}dx = \int_0^\infty \sum_{n=1}^\infty
+x^{s-1}e^{-nx}dx
+\]
+We then note that on any interval $(\epsilon,1/\epsilon)$ the
+convergence of the sum is uniform and we can exchange the sum and the
+integral. So we then compute
+\begin{align*}
+  \int_\epsilon^{1/\epsilon} \sum_{n=1}^\infty x^{s-1}e^{-nx}dx &=
+  \sum_{n=1}^\infty \int_\epsilon^{1/\epsilon}x^{s-1}e^{-nx}dx \\
+  &= \sum_{n=1}^\infty \int_{n\epsilon}^{n/\epsilon} \left(\frac{t}{n}
+  \right)^{s-1} e^{-t}dt
+\end{align*}
+Factoring gives
+\[
+\sum_{n=1}^\infty \int_{n\epsilon}^{n/\epsilon} \left(\frac{t}{n}
+\right)^{s-1} e^{-t}dt = \sum_{n=1}^\infty
+\frac{1}{n^s}\int_{n\epsilon}^{n/\epsilon} t^{s-1}e^{-t}dt
+\]
+We then note that because this holds for every $\epsilon > 0$ we can
+apply dominated convergence to let $\epsilon \to 0$ and yield
+\[
+\int_0^\infty \frac{x^{s-1}}{e^x-1}dx = \sum_{n=1}^\infty
+\frac{1}{n^s}\int_{0}^{\infty} t^{s-1}e^{-t}dt = \zeta(s)\Gamma(s)
+\]
+Dividing both sides by $\Gamma(s)$ gives
+\[
+\zeta(s) = \frac{1}{\Gamma(s)}\int_0^\infty \frac{x^{s-1}}{e^x-1}dx
+\]
+
+\exercise{6.3.16}
+
+By the previous exercise we have that
+\[
+\zeta(s) = \frac{1}{\Gamma(s)}\int_0^\infty \frac{x^{s-1}}{e^x-1}dx
+\]
+We then use linearity to see that
+\[
+\zeta(s) = \frac{1}{\Gamma(s)}\int_0^1 \frac{x^{s-1}}{e^x-1}dx +
+\frac{1}{\Gamma(s)}\int_1^\infty \frac{x^{s-1}}{e^x-1}dx
+\]
+We see that the second term is an entire function becuase $1/\Gamma$
+is entire. For the first term we must consider the behavior of
+\[
+\int_0^1 \frac{x^{s-1}}{e^x-1}dx = \int_0^1 x^{s-2}\frac{x}{e^x-1}dx
+\]
+We then recall the definition of the Bernoulli numbers
+\[
+\frac{x}{e^x-1} = \sum_{m=0}^\infty \frac{B_m}{m!}x^m
+\]
+This gives
+\[
+\int_0^1 x^{s-2}\frac{x}{e^x-1}dx = \int_0^1 x^{s-2}\sum_{m=0}^\infty
+\frac{B_m}{m!}x^mdx
+\]
+We then note that because the convergence is uniform (it is the Taylor
+series) in the disk $|z| < 2\pi$ we can exchange the sum and the
+integral to get
+\[
+\int_0^1 x^{s-2}\sum_{m=0}^\infty \frac{B_m}{m!}x^mdx =
+\sum_{m=0}^\infty\frac{B_m}{m!}\int_0^1x^{m+s-2}dx = \sum_{m=0}^\infty
+\frac{B_m}{m!(m+s-1)}
+\]
+Rewriting this gives
+\[
+\int_0^1 \frac{x^{s-1}}{e^x-1}dx = \sum_{m=0}^\infty
+\frac{B_m}{m!(m+s-1)}
+\]
+Hence, the function is clearly analytic except possibly when $s =
+1$. We then observe that we have an analytic continuation
+\[
+\frac{\Gamma(m+s-1)}{\Gamma(m+s)} = \frac{1}{m+s-1}
+\]
+When $s = 1$ we have a simple pole at $s=1$ and nowhere else. Thus, we
+have defined a function that is continuable, using the above
+extension, to the whole plane with a simple pole at $s=1$.
+\end{document}

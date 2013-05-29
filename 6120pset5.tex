@@ -1,0 +1,403 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 5}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{5.6.4}
+\begin{enumerate}
+\item[\textbf{(a)}] We are interested in
+\[
+F(z) = \prod_{n=1}^\infty (1 - e^{-2\pi nt}e^{2\pi iz})
+\]
+Following the hint, we consider the functions
+\[
+F_1(z) = \prod_{n=1}^N (1 - e^{-2\pi nt}e^{2\pi iz})
+\]
+and
+\[
+F_2(z) = \prod_{n=N+1}^\infty (1 - e^{-2\pi nt}e^{2\pi iz})
+\]
+Where $N$ is chosen such that $N \approx c|z|$ for a choice of $c$ we
+will determine later. We then look at the behavior of $F_2$. We note
+that
+\[
+\prod_{n=N+1}^\infty (1 - e^{-2\pi nt}e^{2\pi iz}) =
+\prod_{n=N+1}^\infty e^{\log{(1 - e^{-2\pi nt}e^{2\pi iz})}} = e^{S_{N+1}}
+\]
+where
+\[
+S_{N+1} = \sum_{n=N+1}^\infty \log{(1 - e^{-2\pi nt}e^{2\pi iz})}
+\]
+Now we will choose $c$ such that $S_{N+1}$ will be bounded. Indeed,
+consider $c = (1/t + \epsilon)$ for any $\epsilon > 0$. We then
+observe that because of our choice of $c$ and for sufficiently large
+$z$
+\[
+e^{-2\pi(N+1)t}e^{2\pi|z|} = e^{-2\pi((N+1)t - |z|)} \leq e^{-2\pi
+  t(\epsilon |z| + 1)} \leq 1/2
+\]
+We then note that $|\log (1+x)| \leq 2|x|$ when $|x| \leq 1/2$ so
+\[
+|S_{N+1}| = \left|\sum_{N+1}^\infty \log{(1 - e^{-2\pi nt}e^{2\pi
+      iz})}\right| \leq \sum_{N+1}^\infty |\log{(1 - e^{-2\pi nt}e^{2\pi
+      iz})}|
+\]
+Applying the inequality from our choice of $c$ gives us
+\[
+\sum_{N+1}^\infty |\log{(1 - e^{-2\pi nt}e^{2\pi iz})}| \leq
+\sum_{N+1}^\infty 2|e^{-2\pi nt}e^{2\pi iz}| \leq 2\sum_{N+1}^\infty
+e^{-2\pi nt}e^{2\pi |z|}
+\]
+Changing indices yields
+\[
+2\sum_{N+1}^\infty e^{-2\pi nt}e^{2\pi |z|} = 2e^{-2\pi((N+1)t -
+  |z|)}\sum_{m=0}^\infty e^{-2\pi mt}
+\]
+We note that the factor outside the sum is less than 1 and that the
+series converges by the geometric series test. These two facts imply
+that $|F_2(z)| \leq A$ for some constant $A$.
+
+We now turn our attention for $F_1(z)$. Again, we know that for any
+$n$
+\[
+|1 - e^{-2\pi nt}e^{2\pi iz}| \leq 1 + e^{2\pi|z|} \leq 2e^{2\pi |z|}
+\]
+As a result
+\[
+|F_1(z)| = \left|\prod_{n=1}^{N} (1 - e^{-2\pi nt}e^{2\pi iz})\right|
+\leq \prod_{n=1}^N |1 - e^{-2\pi nt}e^{2\pi iz}| \leq \prod_{n=1}^N
+2e^{2\pi |z|} = 2^Ne^{2\pi N|z|}
+\]
+Then because $N = O(|z|)$ we can modify the constants so that
+\[
+|F_1(z)| \leq e^{a|z|^2}
+\]
+We then combine the result from $F_1$ and $F_2$ to see that
+\[
+F(z) \leq Ae^{a|z|^2}
+\]
+And so $F$ is of order 2.
+\item[\textbf{(b)}] We apply Proposition 5.3.1 to verify that $F$ is
+  zero exactly when $z = -int + m$ for $n\geq 1$, $n,m \in
+  \Z$. Indeed, by the proposition $F$ is zero precisely when one of
+  its factors is zero. So we need solutions of the equation
+  \[
+  e^{-2\pi nt}e^{2\pi iz} = 1
+  \]
+  This happens when $nt - iz = 0$ so $z = -int + m$ for some integer $m$.
+
+  Let $z_n$ be an enumeration of the zeros. To show that $\sum 1/|z_n|^2
+  = \infty$ we note that by construction
+  \[
+  \sum_{n=1}^\infty \frac{1}{|z_n|^2} =
+  \sum_{n=1}^\infty\sum_{m=-\infty}^\infty \frac{1}{|-int+m|^2} =
+  \sum_{n=1}^\infty\sum_{m=-\infty}^{\infty} \frac{1}{m^2 + (nt)^2}
+  \]
+  Then recall the identity
+  \[
+  \pi\cot\pi a = \sum_{n=-\infty}^\infty \frac{a}{a^2 + n^2}
+  \]
+  Substituting this in our sum gives
+  \[
+  \sum_{n=1}^\infty\sum_{m=-\infty}^{\infty} \frac{1}{m^2 + (nt)^2} =
+  \frac{1}{nt}\sum_{m=-\infty}^\infty \frac{nt}{(nt)^2 + m^2} =
+  \sum_{n=1}^\infty \frac{\pi\coth \pi nt}{nt}
+  \]
+  The last sum diverges by the comparison test. Hence, $\sum 1/|z_n|^2
+  = \infty$.
+
+  To see that $\sum 1/|z_n|^{2+\epsilon}$ converges. We note that by
+  part \textbf{(a)} $F$ has order 2 so for any $\epsilon > 0$ we
+  satisfy the hypotheses for Theorem 5.2.1 which says precisely that
+  \[
+  \sum_{n=1}^\infty \frac{1}{|z_n|^{2+\epsilon}} < \infty
+  \]
+\end{enumerate}
+
+\exercise{5.6.5}
+
+We are looking at
+\[
+F_\alpha(z) = \int_{-\infty}^\infty e^{-|t|^\alpha}e^{2\pi izt}dt
+\]
+for $\alpha > 1$. We will take the hint and begin by showing that
+\[
+-\frac{|t|^\alpha}{2} + 2\pi |z||t| \leq c|z|^{\alpha / (\alpha-1)}
+\]
+First we consider the case that $|z| \leq
+(1/4\pi)|t|^{\alpha-1}$. This implies that $2\pi |z||t| \leq
+|t|^\alpha/2$ and so we have that
+\[
+-\frac{|t|^\alpha}{2} + 2\pi |z||t| \leq 0 \leq
+c|z|^{\alpha/(\alpha-1)}
+\]
+Alternatively if $|z| > (1/4\pi)|t|^{\alpha-1}$ then we can set
+\[
+c = \frac{2\pi}{(4\pi)^{(\alpha-1)^{-1}}}
+\]
+In which case we have that $2\pi |z||t| \leq
+c|z|^{\alpha/(\alpha-1)}$. This gives that
+\[
+-\frac{|t|^\alpha}{2} + 2\pi |z||t| \leq -\frac{|t|^\alpha}{2} +
+c|z|^{\alpha/(\alpha-1)} \leq c|z|^{\alpha/(\alpha-1)}
+\]
+as desired.
+
+We then apply the above inequality to see
+\[
+|F_\alpha(z)| \leq \int_{-\infty}^\infty
+e^{-|t|^\alpha}e^{2\pi|z||t|}dt = \int_{-\infty}^\infty
+e^{-|t|^\alpha/2}e^{2\pi|z||t|-|t|^\alpha/2}dt \leq
+e^{c|z|^{\alpha/(\alpha-1)}}\int_{-\infty}^\infty e^{-|t|^\alpha/2}dt
+\]
+We then note that
+\[
+\int_{-\infty}^\infty e^{-|t|^\alpha/2}dt = \sqrt{2\pi}
+\]
+So that
+\[
+|F_\alpha(z)| \leq \sqrt{2\pi}e^{c|z|^{\alpha/(\alpha-1)}}
+\]
+So that $F$ is of growth order $\alpha/(\alpha-1)$ as desired.
+
+\exercise{5.6.6}
+
+We will evaluate the product formula for $\sin z$
+\[
+\frac{\sin \pi z}{\pi} = z \prod_{n=1}^\infty \left(1 - \frac{z^2}{n^2}\right)
+\]
+Changing variables to $w = \pi z$ we get
+\[
+\frac{\sin w}{w} = \prod_{n=1}^\infty\left(1 - \frac{w^2}{\pi^2n^2}\right)
+\]
+Following the hint we evaluate at $w = \pi/2$ to get
+\[
+\frac{2}{\pi} = \prod_{n=1}^\infty\left(1 - \frac{1}{4n^2}\right)
+\]
+Inverting both sides yields
+\[
+\frac{\pi}{2} = \prod_{n=1}^\infty\left(\frac{4n^2}{4n^2-1}\right) =
+\prod_{n=1}^\infty \frac{2n\cdot 2n}{(2n-1)(2n+1)}
+\]
+as desired.
+
+\exercise{5.6.8}
+
+First let
+\[
+F(z) = \prod_{k=1}^\infty \cos (z/2^k)
+\]
+We will first address the issue of convergence. Consider the function
+\[
+G(z) = \prod_{n=1}^\infty (1 - \cos (z/2^n))
+\]
+We will show that $G$ converges, and then apply Proposition 5.3.1 to
+get that $F$ must converge as well. If we look the formula
+\[
+\cos z = \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!}z^{2n}
+\]
+Then when $|z| \approx 0$ we have that $|1-\cos z| \leq |z|^2$. As a
+result, for sufficiently large $n$ we have that
+\[
+|1-\cos(z/2^n)| \leq (z/2^n)^2 = z^2/4^k
+\]
+Thus, $G$ converges because $\sum_{n > N} |z^2|/4^n$ converges
+(geometric series test) and by Proposition 5.3.1 $F$ must converge as
+well.
+
+Now we follow the hint and repeatedly apply the identity
+\[
+\sin 2z = 2\sin z\cos z
+\]
+This will yield the formula
+\begin{align*}
+  \sin z &= 2\sin(z/2)\cos(z/2) \\
+  &= 4\sin(z/4)\cos(z/2)\cos(z/4) \\
+  &= 8\sin(z/8)\cos(z/2)\cos(z/4)\cos(z/8) \\
+  &\vdots \\
+  &= 2^n\sin(z/2^n)\prod_{k=1}^n \cos(z/2^k)
+\end{align*}
+Because $\sin |z| \approx |z|$ when $|z|$ is small, we see that
+\[
+\sin z = \lim_{n\to\infty} 2^n\sin(z/2^n)\prod_{k=1}^n \cos(z/2^k) = zF(z)
+\]
+Which precisely means that
+\[
+\frac{\sin z}{z} = \prod_{k=1}^\infty \cos(z/2^k)
+\]
+
+\exercise{5.6.9}
+
+We first define
+\[
+F(z) = \prod_{k=0}^\infty (1 + z^{2^k})
+\]
+Adressing the issue of convergence, we note that $\sum_{k=0}^\infty
+z^{2^k}$ converges in the disk $|z| < 1$ by comparison with the
+geometric series. We apply Proposition 5.3.1 to conclude that $F$
+converges as well.
+
+We now need to show that $F(z) = 1/(1-z)$. We recall that
+\[
+\frac{1}{1-z} = \sum_{n=0}^\infty z^k
+\]
+for $|z| < 1$. We will proceed to show that the product formula for
+$F(z)$ is equivalent to this summation formula. More specifically we
+will show that
+\[
+\prod_{k=0}^n (1+z^{2^k}) = \sum_{\ell=0}^{2^{n+1}-1} z^\ell
+\]
+We proceed by induction. The base case $n=0$ is clear. For the
+inductive step observe that
+\[
+\prod_{k=0}^{n+1} (1+z^{2^k}) = (1+z^{2^{n+1}})\prod_{k=0}^n
+(1+z^{2^k}) = (1+z^{2^{n+1}})\left(\sum_{\ell=0}^{2^{n+1}-1} z^\ell\right)
+\]
+The last equality follows from the induction hypothesis. We then
+distribute to see
+\[
+(1+z^{2^{n+1}})\left(\sum_{\ell=0}^{2^{n+1}-1} z^\ell\right) =
+\left(\sum_{\ell=0}^{2^{n+1}-1} z^\ell\right) +
+z^{2^{n+1}}\left(\sum_{\ell=0}^{2^{n+1}-1} z^\ell\right) =
+\left(\sum_{\ell=0}^{2^{n+1}-1} z^\ell\right) +
+\left(\sum_{\ell=2^{n+1}}^{2^{n+2}-1} z^\ell\right)
+\]
+We then combine the two sums two conclude that
+\[
+\prod_{k=0}^{n+1} (1+z^{2^k}) = \sum_{\ell=0}^{2^{n+2}-1} z^\ell
+\]
+and so equality holds for all $n$ by induction.
+
+We then observe that
+\[
+F(z) = \lim_{n\to\infty} \prod_{k=0}^n (1+z^{2^k}) = \lim_{n\to\infty}
+\sum_{k=0}^\infty z^k = \frac{1}{1-z}
+\]
+
+\exercise{5.6.15}
+
+Let $f$ be a meromorphic function with poles at $\{z_n\}$, counted
+with multiplicity. Then Theorem 5.4.1 guarantees the existence of an
+entire function $g$ that vanishes precisely at the $\{z_n\}$ and
+nowhere else. Then the product $h = fg$ is an entire function and we
+can write $f = h/g$, so $f$ is the quotient of two entire functions.
+
+Now let $\{a_n\}$ and $\{b_n\}$ be sequences that have no finite limit
+point in the plane. Applying Theorem 5.4.1 to both of these sequences
+yields two functions $f$ and $g$ with zeros precisely at the $\{a_n\}$
+and $\{b_n\}$, respectively. Then the quotient $f/g$ has zeroes at the
+$a_n$ and poles at the $b_n$.
+
+\exercise{5.6.17}
+\begin{enumerate}
+\item[\textbf{(a)}] This part is the complex version Lagrange
+  Interpolation, which I have seen before. Indeed, we have our two
+  sets of complex numbers $\{a_1,\ldots,a_n\}$ and
+  $\{b_1,\ldots,b_n\}$ with the $a_n$ all distinct. We will look to
+  have some polynomial of the form
+  \[
+  P(z) = \sum_{k=1}^n b_kp_k(z)
+  \]
+  where $p_k(z)$ is a polynomial with the property that
+  \[
+  p_k(z) =
+  \begin{cases}
+    1 & z = a_k \\
+    0 & z = a_\ell, \ell \neq j
+  \end{cases}
+  \]
+  This will give $P$ the desired property that $P(a_k) = b_k$. So the
+  construction of $P$ has been reduced to the construction of the $p_k$.
+
+  We will then define a product formula for $p_k(z)$ via
+  \[
+  p_k(z) = \prod_{\substack{m \leq n \\ m \neq k}} \frac{z - a_m}{a_k - a_m}
+  \]
+  To see that $p_k$ is the desired function we note that for $j\neq k$
+  \[
+  p_k(a_j) = \prod_{\substack{m \leq n \\ m \neq k}} \frac{a_j -
+    a_m}{a_k - a_m} = \left(\frac{a_j - a_j}{a_k -
+      a_j}\right)\prod_{\substack{m \leq n \\ m \neq j,k}} \frac{z -
+    a_m}{a_k - a_m} = 0
+  \]
+  Moreover,
+  \[
+  p_k(a_k) = \prod_{\substack{m \leq n \\ m \neq k}} \frac{a_k -
+    a_m}{a_k - a_m} = 1
+  \]
+  as desired.
+\item[\textbf{(b)}] We need to verify that the formula
+  \[
+  F(z) = \frac{b_0}{E'(a_0)}\frac{E(z)}{z}+\sum_{k=1}^\infty
+  \frac{b_k}{E'(a_k)}\frac{E(z)}{z-a_k}\left\frac{z}{a_k}^{m_k}
+  \]
+  has the desired properties. Where $E(z)$ is a Weierstrass product
+  for the $\{a_k\}$. As a result there is a zero with the correct
+  multiplicity at each of the $a_k$. Moreover, a direct substitution
+  shows that $F(a_k) = b_k$, given a suitably chosen value for the
+  $m_k$. Let $F_R(z)$ be the restriction of $F$ to the disk of radius
+  $R$ centered at the origin. We need to show that we can choose the
+  $m_k$ suitably for each of the roots $a_k < R$. Indeed, we appeal to
+  the discussion in Remark
+\end{enumerate}
+
+\end{document}

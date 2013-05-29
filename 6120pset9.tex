@@ -1,0 +1,399 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 9}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\Ha}{\mathbb{H}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lpnorm}[2]{\|#1\|_{L^{#2}}}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{3.4.3}
+
+Suppose that $f$ is a bounded Lipschitz function with Lipschitz
+constant $C$. Then $f \in L^\infty$. To reason about the first order
+derivatives $\der{}{x_j}f$, we convolve with an approximate identity
+as in Proposition 3.1.2 and define the sequence $f_n = f \ast \phi_n$,
+where $\psi_n$ is the approximate identity. Then we see that
+$\der{}{x_j}f_n = \der{}{x_j}f \ast \psi_n \to \der{}{x_j}f$ uniformly
+with $n$. Then we compute the partial derivatives via the difference
+quotient yielding
+\begin{align*}
+  \int \frac{f(x + y + \epsilon e_j) - f(x+y)}{\epsilon}\psi_n(y)dy
+  &\leq C\int \psi_n(y)dy
+\end{align*}
+This goes to $C$ uniformly in $n$. So the partial derivatives are
+uniformly bounded by the Lipshitz constant $C$.
+
+\exercise{3.4.4}
+\begin{enumerate}
+\item[\textbf{(a)}] Because $F$ is a distribution on $\Omega$, we can
+  apply Proposition 3.1.2 to get a sequence of $C^\infty$ functions
+  $f_n$ such taht $f_n \to F$ in the sense of distributions. Now we
+  use the fact that $C_{Com}^\infty \subset C^\infty$ is a dense
+  containment to get a sequence of functions $f_{n,m} \to f_n$ as
+  $m\to\infty$, where the convergence takes place in
+  $C^\infty$. Because this convergence is in the sense of functions,
+  we can conclude that $f_{n,m} \to f_n$ in the sense of distributions
+  as well. Finally, we note that in the sense of distributions
+  \[
+  |f_{n.n}(\varphi) - F(\varphi)| = |(f_{n.n}(\varphi) -
+  f_n(\varphi))+ (f_n(\varphi - F(\varphi))| \leq |(f_{n.n}(\varphi) -
+  f_n(\varphi))| + |(f_n(\varphi - F(\varphi))|
+  \]
+  Letting $n \to \infty$ gives the result.
+\item[\textbf{(b)}] Now let $C$ be the support of $F$. We need to
+  restrict the approximating functions $f_n$ to an
+  $\epsilon$-neighborhood of $C$. For $0 \leq \delta \leq \epsilon$
+  let $C_\delta$ be all the points within $\delta$ of $C$/ Fix a
+  $\delta_0 < \epsilon/2$ and choose a function $\varphi$ supported in
+  the unit ball such that $\int \varphi = 1$. Then we consider the
+  family of scaling functions
+  \[
+  \varphi_R(x) = R^{-d}\varphi(x/R)
+  \]
+  which are supported in the balls of radius $R$ about the origin. We
+  then consider the convolutions
+  \[
+  \varphi_{\delta_0} \ast \capchi_{C_{\delta_0}} = \int_{\R^d}
+  \varphi_{\delta_0}(y)\capchi_{C_{\delta_0}}(x-y)dy = \int_{|y| \leq
+    \delta_0}\varphi_{\delta_0}(y)\capchi_{C_{\delta_0}}(x-y)dy
+  \]
+  because $\varphi_{\delta_0}$ is supported on the ball of radius
+  $\delta_0$. Now if $x \in C$ and $|y| \leq \delta_0$ then
+  $\capchi_{C_{\delta_0}}(x-y) = 1$, but if $x \not\in C_{\epsilon}$
+  and $|y| \leq \delta_0$ then $x-y \not\in C_{\epsilon}$. Thus, we
+  see that
+  \[
+  (\varphi_{\delta_0} \ast \capchi_{C_{\delta_0}})(x) =
+  \begin{cases}
+    1 & x \in C \\
+    0 & \text{outside }C_{\epsilon}
+  \end{cases}
+  \]
+  Now we simply note that $\varphi_{\delta_0} \ast
+  \capchi_{C_{\delta_0}} \in \C_{Com}^\infty$ by construction and we
+  then simply take a sequence $f_n \to F$ with the $f_n \in
+  C^{\infty}$ and define the new sequence $(\varphi_{\delta_0} \ast
+  \capchi_{C_{\delta_0}})\cdot f_n$ which has the desired properties.
+\end{enumerate}
+
+\exercise{3.4.7} In the forward direction, we suppose that $F$ is a
+tempered distribution. The by Proposition 3.1.4 we can find an $N$
+such that $|F(\varphi)| \leq C\norm{\varphi}_N$ for all $\varphi \in
+\mathcal{S}$. Now suppose that $\varphi \in \mathcal{D}$ and has
+supposrt in the ball $|x| \leq R$, then we have the bound $|x|^\beta \leq
+c_{n,\beta}|x|^{|\beta|} \leq c_{n,N}R^n$. This implies that
+\[
+|F(\varphi)| = \sup_{\substack{x\in\R^d}}
+|x^{\beta}\partial_{x}^{\alpha}\varphi| \leq
+Cc_{n,N}R^N\sup_{\substack{x\in\R^d}} |\partial_x^\alpha\varphi|
+\]
+with $A = Cc_{n,N}$, as desired.
+
+Conversely, suppose that $F$ is a functional that satisfies
+\[
+|F(\varphi)| \leq
+AR^N\sup_{\substack{x\in\R^d}}|\partial_x^\alpha\varphi|
+\]
+for all $\varphi$ supported in $|x| \leq R$. Then we see that $F \in
+\mathcal{D}^\ast$. Choose a partition of unity on $\R^d$, say $\psi_j$
+with each of the $\psi_j$ supported in a ball about the origin. TO
+construct such a partition we will use a function $\eta(x) + \eta(x-1)
+= 1$ supported in $(-1,1)$. Then $\eta$ induces a partition of unity
+given by $\psi_j(x) = \eta(|x| - j)$ supported in the disk of radius
+$j$. For a given $\varphi_j \in \mathcal{D}$ so that
+\[
+\sum_{j=0}^\infty \psi_j\varphi = \varphi
+\]
+where the convergence is in $\mathcal{D}$. Thus, we can set
+\[
+|F(\varphi)| \leq |F(\psi_0\varphi)| + \sum_{j=1}^\infty
+|F(\psi_j\varphi)|
+\]
+Becuase $\psi_0$ is supported in the unit ball, we take $R = 1$ to see
+that
+\[
+|F(\psi_0\varphi)| \leq C\sum_{|\alpha|\leq N}
+\sup_{x\in\R^n}|\partial^\alpha_x(\psi_0\varphi)| \leq
+C'\sum_{|\alpha|\leq N}
+\sup_{x\in\R^n}|\partial^\alpha_x(\varphi)|
+\]
+where $C'$ is a constant depending only on the $\psi_j$ and $N$. Now
+we will go through a similar process for each of the
+$|F(\psi_j\varphi)|$ yielding
+\[
+|F(\psi_j\varphi)| \leq C(j+1)^N \sum_{|\alpha|\leq N} \sup_{x \in
+  B_j}|\partial_x^\alpha\varphi|
+\]
+As before we can then bound this with a new constant $C_j'$ such that
+\begin{align*}
+  C(j+1)^N \sum_{|\alpha|\leq N} \sup_{x \in
+    \R^n}|\partial_x^\alpha\varphi| &\leq C_j'(j+1)^N
+  \sum_{|\alpha|\leq N} \sup_{x \in B_j}|\partial_x^\alpha\varphi| \\
+  &= C_j'(j+1)^{-2}\left(\frac{j+1}{j}\right)^{N+2} \sum_{|\alpha|
+    \leq N} j^{N+2}|\partial_x^\alpha\varphi|
+\end{align*}
+Now we use the fact that $j \leq 1+|x|$ for $x$ in the ball of radius
+$j$ and get a bound
+\begin{align*}
+  C_j'(j+1)^{-2}\left(\frac{j+1}{j}\right)^{N+2}\sum_{|\alpha| \leq N}
+  j^{N+2}|\partial_x^\alpha\varphi| &\leq
+  C_j'(j+1)^{-2}2^{N+2}\sum_{|\alpha| \leq N}
+  (1+|x|)^{N+2}|\partial_x^\alpha\varphi| \\
+  &\leq C_j'(j+1)^{-2}2^{N+2}\sum_{|\alpha| \leq N} \norm{\varphi}_{N+2}
+\end{align*}
+So we have bounded $F(\varphi)$ in terms of finite sums of
+$\norm{\varphi}_N$ for various $N$. Hence, $F$ extends to be bounded on
+$\mathcal{S}$ by density and so we have that $F \in \mathcal{S}^\ast$.
+
+\exercise{3.4.8}
+
+Suppose that $F$ is a homogeneous distribution of degree
+$\lambda$. Then we know that $|F_a(\varphi)| = a^{\lambda}F$. Consider
+a scaling operator $\eta \in \mathcal{D}$ with $\eta(x)$ in $|x| \leq
+1$, supported in $|x| \leq 2$ and $\eta_R(x) = \eta(x/R)$. We know
+because $F$ is a distribution and $\eta$ has compact support
+\[
+|\eta_1F(\varphi)| = |f(\eta_1\varphi)| \leq C \sum_{|alpha| \leq N}
+\sup_{x \leq 1} |\partial_x^\alpha\varphi| \leq C\norm{\varphi}_N
+\]
+We can see this because we can approximate $F$ by a sequence of
+distributions with compact sense $F_n \to F$ in the weak sense as $n
+\to \infty$ and by the discussion after Proposition 3.1.4, the limit
+holds for each of the $F_n$ and thus for $F$ as well. Now suppose that
+we have a distribution $\varphi \in \mathcal{D}$ that is supported in
+the ball of radius $R$ about the origin with $R \geq 1$. Then we see
+that $\eta_R\varphi$ is supported in the unit ball and the above estimate
+gives
+\begin{align*}
+  |\eta_RF(\varphi)| &\leq C \sum_{|\alpha| \leq N} \sup_{|x| \leq 1}
+  |\partial_x^\alpha(\eta_R\varphi)| \\
+  &= C \sum_{|\alpha| \leq N} \sup_{|x| \leq 1}
+  R^{-|\alpha|}|\partial_x^\alpha(\varphi)|
+\end{align*}
+Now because $F$ is homogenous we also know that $F(\eta_R\varphi) =
+R^{-n - \lambda}|F(\varphi)|$. Combining these facts we see that
+\[
+|F(\eta_R\varphi)| \leq CR^{n+\lambda}\sum_{|\alpha| \leq N}
+\sup_{|x|\leq R} |\partial_x^\alpha\varphi| \leq
+CR^{n+\lambda}\norm{\varphi}_N
+\]
+We can then apply the previous exercise to see that $F$ must be tempered.
+
+\exercise{3.4.10}
+
+To see that $\mathcal{D}$ is dense in $\mathcal{S}$ we let $\varphi
+\in S$ fix an $\eta \in \mathcal{D}$ that has $\eta = 1$ on the unit
+ball. We then set $\eta_k(x) = \eta(x/k)$ and $\varphi_k =
+\eta_k\varphi$. Then consider $\norm{\varphi_k - \varphi}_N$,
+\begin{align*}
+  \norm{\varphi_k - \varphi}_N &= \sup_{\substack{x\in \R^d \\
+      |\alpha|,|\beta| \leq N}}
+  |x^\beta\partial_x^\alpha(\eta_k\varphi - \varphi)| \\
+  &= \sup_{\substack{x\in \R^d \\
+      |\alpha|,|\beta| \leq N}}
+  |x^\beta\partial_x^\alpha(\eta_k\varphi) -
+  x^\beta\partial_x^\alpha(\varphi)|
+\end{align*}
+Then we compute
+\begin{align*}
+  \partial_x^\alpha(\eta_k\varphi) &= \sum_{|\gamma| \leq |\alpha|}
+  \binom{|\alpha|}{|\gamma|}k^{|\gamma - \alpha|}\partial_x^\gamma
+  \varphi\partial_x^{\gamma - \alpha}\eta_k \\
+  &= \partial_x^\alpha\varphi +\sum_{\substack{|\gamma| \leq |\alpha|
+      \\ \gamma \neq \alpha}} \binom{\alpha}{\gamma}k^{|\gamma -
+    \alpha|}\partial_x^\gamma \varphi\partial_x^{\gamma -
+    \alpha}\eta_k
+\end{align*}
+So we can estimate the above by
+\begin{align*}
+  \sup_{\substack{x\in \R^d \\
+      |\alpha|,|\beta| \leq N}}
+  |x^\beta\partial_x^\alpha(\eta_k\varphi) -
+  x^\beta\partial_x^\alpha(\varphi)| &\leq \left|
+    x^{\beta}\sum_{\substack{|\gamma| \leq |\alpha| \\ |\gamma -
+        \alpha| \geq 1}} \binom{|\alpha|}{|\gamma|}k^{|\gamma -
+      \alpha|}\partial_x^\gamma \varphi\partial_x^{\gamma -
+      \alpha}\eta_k\right| \\
+  &\leq \frac{\norm{\varphi}_N}{k} \sum_{\substack{|\gamma| \leq
+      |\alpha| \\ |\gamma - \alpha| \geq 1}} \norm{\varphi}_{|\alpha|}
+\end{align*}
+This clearly goes to zero as $k \to \infty$ for all $N$ and so we have
+that $\varphi_k \to \varphi$ as desired.
+
+\exercise{3.4.11}
+\begin{enumerate}
+\item Suppose that both $\varphi_1,\varphi \in \mathcal{S}$. Then we
+  need to show that
+  \[
+  \norm{\varphi_1\varphi_2}_N = \sup_{\substack{x\in\R^d \\
+      |\alpha|,|\beta| \leq N}}
+  |x^\beta\partial_x^\alpha(\varphi_1\varphi_2)| <\infty
+  \]
+  We then compute the product via
+  \begin{align*}
+    \partial_x^\alpha(\varphi_1\varphi_2) &= \sum_{\gamma \leq
+      \alpha}\binom{\alpha}{\gamma}(\partial_x^{\alpha-\gamma}\varphi_1)
+    (\partial_x^\gamma \varphi_2)
+  \end{align*}
+  Substituting this formula above gives
+  \begin{align*}
+    \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}}
+    |x^\beta\partial_x^\alpha(\varphi_1\varphi_2)| &=
+    \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} \left|x^{\beta}\sum_{\gamma \leq
+        \alpha}\binom{\alpha}{\gamma}(\partial_x^{\alpha-\gamma}\varphi_1)
+      (\partial_x^\gamma \varphi_2)\right| \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}}\left|\sum_{\gamma \leq
+        \alpha}\binom{\alpha}{\gamma}\left(x^{N -
+          |\gamma|}\partial_x^{\alpha-\gamma}\varphi_1\right)
+      \left(x^{|\gamma|}\partial_x^\gamma \varphi_2\right)\right| \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} \sum_{\gamma \leq
+      \alpha}\binom{\alpha}{\gamma}\norm{\varphi_1}_{N-|\gamma|}
+    \norm{\varphi_{2}}_{|\gamma|}
+  \end{align*}
+  This is a finite sum and hence, is bounded so that
+  $\norm{\varphi_1\varphi_2}_N \leq \infty$ and so $\varphi_1\varphi_2
+  \in \mathcal{S}$ as claimed.
+\item To see that $\varphi_1 \ast \varphi_2 \in \mathcal{S}$ whenever
+  $\varphi_1, \varphi_2 \in \mathcal{S}$ we will invoke the Fourier
+  transform. We saw that the Fourier transform $\mathcal{F}:
+  \mathcal{S} \to \mathcal{S}$ was a homeomorphism and that
+  \[
+  \mathcal{F}(\varphi_1 \ast \varphi_2) =
+  \mathcal{F}(\varphi_1)\mathcal{F}(\varphi_2)
+  \]
+  Because $\varphi_1$ and $\varphi_2$ are both in $\mathcal{S}$ we
+  conclude that $\mathcal{F}(\varphi_1 \ast \varphi_2) \in
+  \mathcal{S}$ as well. Then applying Fourier inversion in
+  $\mathcal{S}$ we get that $\varphi_1\ast\varphi_2 \in \mathcal{S}$
+  as desired.
+\item To verify that $\varphi_1 \ast \varphi_2 \in \mathcal{S}$
+  directly from the definition we first recall that differentiation
+  commutes with the convolution to compute
+  \begin{align*}
+    \norm{\varphi_1\ast \varphi_2}_N &= \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}}
+    |x^{\beta}\partial_x^\alpha(\varphi_1\ast\varphi_2)| \\
+    &= \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}}\left|x^\beta \varphi_1
+      \ast \partial_{x-y}^\alpha\varphi_2\right| \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} \int_{\R^d}
+    |\varphi_1(y)|\cdot|x^\beta\partial_{x-y}^\alpha\varphi(x-y)|dy \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} \sum_{\gamma \leq
+      \beta}\binom{\beta}{\gamma}\int_{\R^d} |y^\ell\varphi_1(y)|\cdot
+    |(x-y)^{\beta-\ell}\partial_{x-y}^\alpha\varphi(x-y)|dy \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} \sum_{\gamma \leq
+      \beta}\binom{\beta}{\gamma}\norm{\varphi_2}_N\int_{\R^d}
+    |y^\ell\varphi_1(y)| \frac{1+y^2}{1+y^2}dy \\
+    &\leq \sup_{\substack{x\in\R^d \\
+        |\alpha|,|\beta| \leq N}} C\sum_{\gamma \leq
+      \beta}\binom{\beta}{\gamma}\norm{\varphi_2}_N
+    (\norm{\varphi_1}_{\gamma} + \norm{\varphi}_{|\gamma|+2})
+  \end{align*}
+  The last term is bounded because it is a finite sum of bounded
+  terms. Hence $\varphi_1\ast\varphi_2 \in \mathcal{S}$
+\end{enumerate}
+
+\exercise{3.4.12} Let $F$ be a distribution with compact support and
+let $\varphi \in \mathcal{S}$. We will first show that for each $N$ we
+can find a constant $C_N$ such that
+\[
+\norm{\varphi_y^\sim}_N \leq C_N(1+|y|)^N\norm{\varphi}_N
+\]
+Indeed, we first note that
+\[
+\norm{\varphi_y^\sim}_N = \sup_{\substack{y \in \R^d \\
+    |\alpha|,|\beta| \leq N}}|y^\beta\partial_y^\alpha\varphi(x-y)
+\leq \sup_{\substack{y \in \R^d \\
+    |\alpha|,|\beta| \leq
+    N}}|(1+|y|)^\beta\partial_y^\alpha\varphi(y-y)
+\]
+Then we note that $(1+|y|) \leq (1+|y|)(1+|x-y|)$ to conclude that
+\begin{align*}
+  \sup_{\substack{y \in \R^d \\
+      |\alpha|,|\beta| \leq
+      N}}|(1+|y|)^\beta\partial_y^\alpha\varphi(x-y)| &\leq \sup_{
+    \substack{y \in \R^d \\
+      |\alpha|,|\beta| \leq
+      N}}|(1+|y|)^\beta(1+|x-y|)^\beta\partial_y^\alpha\varphi(x-y)| \\
+  &\leq C_N(1+|y|)^N\sup_{\substack{y\in \R^d \\ |\alpha|,|\beta|\leq
+      N}} ||x-y|^\beta\partial_y^\alpha(x-y)| \\
+  &\leq C_N(1+|y|)^N\norm{\varphi}_N
+\end{align*}
+Now we note that because $F$ has compact support it must also be
+tempered and therefore we can apply Proposition 3.1.4 to see that
+the function $F\ast \varphi = F(\varphi_y^\sim)$ must satisfy
+\[
+|F(\varphi_x^\sim)| \leq c\norm{\varphi_y^\sim}_N \leq
+C'(1+|x|)^N\norm{\varphi}_N
+\]
+Thus, we see that
+\begin{align*}
+  \norm{F(\varphi_x^\sim}_N = \sup_{\substack{x \in \R^d \\
+      |\alpha|,|\beta|\leq N}} |x^{\beta}\partial_x^\alpha
+\end{align*}
+\end{document}

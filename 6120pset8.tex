@@ -1,0 +1,286 @@
+\documentclass[11pt]{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 5}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\Ha}{\mathbb{H}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lpnorm}[2]{\|#1\|_{L^{#2}}}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{2.7.3}
+
+Consider inequalities of the form
+\[
+\lpnorm{\hat{f}}{q} \leq A\lpnorm{f}{p}
+\]
+where $f$ is a simple function. We see in Corollary 2.2.6 that if $p,q$
+are conjugate then such an inequality is possible. We need to show
+that this is necessary. Indeed, if we look at the family of functions
+$f_r(x) = f(rx)$ for $r > 0$. Then we compute
+\[
+\hat{f}_r(\xi) = \int f_r(x)e^{-2\pi ix\cdot \xi}dx = r^{-d}\int
+f(u)e^{-2\pi iu\cdot \xi/r}du = r^{-d}\hat{f}_r(\xi/r)
+\]
+We then note that because $f$ is simple, it is in both $L^p$ and $L^q$
+for all $p$ and $q$. This implies that the inequality above satisfies
+\[
+\lpnorm{\hat{f}}{q} \leq Ar^d\lpnorm{f}{p}
+\]
+due to translation invariance of the integral. We know by the
+Hausdorff-Young inequality that the Fourier transform of an $L^p$
+function is in $L^q$ if $q$ is conjugate to $p$. Letting $r\to\infty$
+the right hand is unbounded we have a contradiction unless $p,q$ are
+conjugate.
+
+\exercise{2.7.4}
+
+We are considering estimates of the type
+\[
+\int_{|\xi| \leq 1} |\hat{f}(\xi)|d\xi \leq A\lpnorm{f}{p}
+\]
+Given $f \in L^p$, consider the function
+\[
+f^s(x) = s^{-d/2}e^{-\pi|x|^2/s}
+\]
+where $s = \sigma + it$, $\sigma > 0$. We then compute the Fourier
+transform $\hat{f^s}(\xi)$ via
+\begin{align*}
+  \hat{f^s}(\xi) &= \int_{\R^d} s^{-d/2}e^{-\pi|x|^2/s}e^{-2\pi ix\cdot \xi}dx
+\end{align*}
+Then note that because $|x|^2 = x \cdot x$ the inner products in the
+exponents above allow the integral to admit a factorization into
+single variable integrals yielding
+\begin{align*}
+  \hat{f^s}(\xi) &= \prod_{j=1}^ds^{-d/2}\int_{-\infty}^\infty e^{-\pi
+    x_j^2/s}e^{-2\pi ix_j\xi_j}dx_j \\
+  &= \prod_{j=1}^ds^{-d/2}\int_{-\infty}^\infty
+  e^{-\frac{\pi}{s}(x_j-is\xi_j)^2}e^{-\pi s\xi_j^2}dx_j \\
+  &= \prod_{j=1}^ds^{-d/2}e^{-\pi s\xi_j^2}\int_{-\infty}^\infty
+  e^{-\frac{\pi}{s}(x_j-is\xi_j)^2}dx_j
+\end{align*}
+Where the third equality above follows by completing the square. We
+can then simplify each term using contour integration using a
+reduction to the Gaussian integral
+\begin{align*}
+  \int_{-\infty}^\infty e^{-\frac{\pi}{s}(x_j-is\xi_j)^2}dx_j =
+  \int_{-\infty-is\xi_j}^{\infty-is\xi_j} e^{-\pi u_j^2/s}du_j =
+  s^{1/2}
+\end{align*}
+Pluggin this into the product formula above yields
+\[
+\hat{f^s} = \prod_{j=1}^ds^{-d/2}e^{-\pi
+  s\xi_j^2}\int_{-\infty}^\infty e^{-\frac{\pi}{s}(x_j-is\xi_j)^2}dx_j
+= e^{-\pi s|\xi|^2}s^{-d/2}\prod_{j=1}^d s^{1/2} = e^{-\pi s|\xi|^2}
+\]
+Now we restrict our attention to the line $\sigma = 1$ so that $s = 1
++ it$. We then compute
+\begin{align*}
+  \lpnorm{f^s}{p}^p &= \int \left|s^{-d/2}e^{-\pi|x|^2/s}\right|^pdx \\
+  &\leq |s^{-d/2}|^p\int \prod_{j=1}^d
+  \left| e^{-\pi x_j^2/s}\right|^pdx_1\ldots dx_d \\
+  &\leq |s^{-d/2}|\prod_{j=1}^\infty \int \left|e^{-\pi x_j^2/s}\right|^pdx_j \\
+\end{align*}
+Now we use the fact that $s = 1 + it$. Then we see that
+\[
+1/(1+it) = \frac{1}{t^2+1} - \frac{it}{t^2+1}
+\]
+So the exponent in the integral resolves to
+\[
+(-\pi ix_j^2)\left(\frac{1}{t^2+1} - \frac{it}{t^2+1}\right) =
+\left(\frac{-\pi tx_j^2}{t^2+1} - \frac{\pi i x_j^2}{t^2+1}\right)
+\]
+Now we use the fact that
+\[
+\int e^{-\pi ax^2}dx = \frac{1}{\sqrt{a}}
+\]
+to continue the above computation as follows
+\begin{align*}
+  \int \left|e^{-\pi x_j^2/s}\right|^pdx_j &= \int \left|\real e^{-\pi
+      x_j^2/s}\right|^pdx_j \\
+  &= \int e^{-\pi (pt/t^2+1)x_j^2}dx_j \\
+  &= \left(\frac{pt}{t^2+1}\right)^{-1/2}\\
+  &= O(t^{1/2})
+\end{align*}
+Plugging this into the integral formula above gives
+\[
+\lpnorm{f^s}{p}^p \leq |(1+it)^{-d/2}|^pO(t^{1/2}) =
+O(t^{-pd/2})O(t^{d/2}) = O(t^{pd - d/2})
+\]
+Then taking $p$-th roots gives $\lpnorm{f^s}{p} \leq ct^{d(1/p -
+  1/2)}$. We then let $t \to \infty$ and observe that if $1/p < 1/2$
+then the right hand side of the inequality
+\[
+\int_{|\xi| \leq 1} |\hat{f}(\xi)|d\xi \leq A\lpnorm{f}{p}
+\]
+will go to zero, but the left hand side will remain positive, a
+contradiction. Hence, $1/p \geq 1/2$ so we must have that $p \leq 2$.
+
+\exercise{2.7.5}
+
+Let $S$ be the strip $0 < \real (z) < 1$. Let $\psi(z) = e^i\pi z$ and
+let $\Phi(z) = e^{-i\psi(z)}$. First we will check that $\Phi$ is
+continuous on the closure of $S$. Indeed, we note that $\varphi (z)=
+e^{iz}$ is clearly continuous on the closed upper half-plane. So we
+only need to verify that $\psi: S \to \mathbb{H}$ is continuous on the
+closure of $S$. Suppose that $\alpha \in \partial S$, then because
+$\psi$ is a conformal map, $\psi(z)$ must be on the boundary of
+$\mathbb{H}$. Suppose that $\psi$ is not continuous, then we can find
+two distinct sequences $\{z_i\}_{i \in \N}, \{w_i\}_{i \in \N}$
+converging to $\alpha$ such that $\lim_{i \to \infty} \psi(z_i) \neq
+\lim_{i \to \infty} \psi(w_i)$. These limits must exist in
+$\mathbb{H}$ because the $z_i,w_i$ are bounded and convergent. If we
+set $z,w$ as the respective limits then we know that their are open
+sets $U_z,U_w$ such that $d(U_z,U_w) > \delta$ for some $\delta >
+0$. But then the continuity of $\psi$ on the interior of $S$
+guarantees that if $d(w_i,z_j) < \delta_0$ then $d(\psi(w_i),
+\psi(z_j)) \leq \delta$. Because infinitely many of the $z_i,w_i$ are
+contained in a $\delta_0$-neighborhood of $\alpha$ we have a
+contradiction. Thus, $\psi$ is continuous on the boundary.
+
+Now we need to see that $|\Phi(z)| = 1$ on the boundary of $S$. This
+follows from the fact that angles are preserved under conformal maps,
+we see that $\psi$ maps the boundary of $S$ to the boundary of
+$\mathbb{H}$. This is $\R$ lying in $\C$ which is taken onto the
+circle $S^1$ under the map $e^{iz}$, so that $|\Phi(z) = 1$. Finally,
+to see that $Phi$ is unbounded on the interior of $S$ we note that it
+is non-constant and holomorphic and therefore cannot be bounded.
+
+\exercise{2.7.7}
+
+We have that $f$ is bounded with compact support and therefore must be
+in $L^2(\R)$. Then we must have that
+\[
+H(f)(x) = \lim_{\epsilon \to 0} \frac{1}{\pi}\int_{|t| \geq \epsilon}
+f(x-t) \frac{dt}{t}
+\]
+Moreover, we see that
+\[
+\int_{-\infty}^\infty H(f)(x)dx = \int_{-\infty}^\infty
+\left(\lim_{\epsilon\to 0} \frac{1}{\pi}\int_{|t| \geq \epsilon} f(x-t)
+\frac{dt}{t}\right)dx = \lim_{\epsilon\to 0}\int_{-\infty}^\infty
+\frac{1}{\pi}\int_{|t| \geq \epsilon} \frac{f(t)}{x-t}dt
+\]
+Note that the change of variable is ok because $f$ is bounded with
+compact support. Then we integrate by parts to see that if $a = \int
+fdx$ then $Hf(x) = a/\pi x + O(1/x^2)$. This clearly shows that $H(f)$
+cannot be $L^1$ unless $a = 0$, which precisely says that $\int fdx =
+0$. 
+
+\exercise{2.7.10}
+\begin{enumerate}
+\item[(a)] Suppose $1 \leq p \leq \infty$ and recall that
+  \[
+  (f \ast \mathcal{P}_y) = \int_{-\infty}^\infty \hat{f}(\xi)e^{2\pi i
+    x\xi}e^{-2\pi y|\xi|}d\xi
+  \]
+  Then for $f \in L^p(\R)$ we need to compute
+  \[
+  \lpnorm{f\ast \mathcal{P}_y}{p}^p =
+  \int_{-\infty}^\infty\left|\int_{-\infty}^\infty \hat{f}(\xi)e^{2\pi
+      i x\xi}e^{-2\pi y|\xi|}d\xi\right|^pdx
+  \]
+  Indeed, for the inner integral we observe that
+  \[
+  \left|\int_{-\infty}^\infty \hat{f}(\xi)e^{2\pi i x\xi}e^{-2\pi
+      y|\xi|}d\xi\right|^p = \left|\int_{-\infty}^\infty
+    \hat{f}(\xi)e^{2\pi i(x+i\mathrel{\text{sign}}(\xi)y)\xi}d\xi \right|^p
+  \]
+  Moving the absolute value inside the integral and applying the
+  Fourier inversion formula to the aboslute value gives
+  \[
+  \left|\int_{-\infty}^\infty \hat{f}(\xi)e^{2\pi
+      i(x+i\mathrel{\text{sign}}(\xi)y)\xi}d\xi \right|^p \leq
+  \left(\int_{-\infty}^\infty \left|\hat{f}(\xi)e^{2\pi
+      ix\xi}\right|d\xi\right)^p = |f(x)|^p
+  \]
+  Note that the imaginary part was eliminated when passing to the
+  absolute value above. Substitution into the formula for the norm
+  gives
+  \[
+  \lpnorm{f \ast \mathcal{P}_y}{p}^p \leq \int_{-\infty}^\infty
+  |f(x)|^pdx = \lpnorm{f}{p}^p
+  \]
+  Taking $p^{\text{th}}$ roots gives the result.
+\item[(b)] We first recall that
+  \[
+  \int_{-\infty}^\infty \mathcal{P}_y(x)dx = 1
+  \]
+  for each $y > 0$. As a result of this we see that
+  \[
+  (f \ast \mathcal{P}_y)(x) - f(x) = \int_{-\infty}^\infty [f(x-t) -
+  f(x)]\mathcal{P}_y(t)dt
+  \]
+  Consequently,
+  \[
+  |(f \ast \mathcal{P}_y)(x) - f(x)| \leq \int_{-\infty}^\infty
+  |f(x-t) - f(x)|^p\mathcal{P}_y(t)dt
+  \]
+  We then set $f_t(x) = f(x-t)$ integrate integrate with respect to $t$ and apply Fubini's
+  theorem to get
+  \[
+  \lpnorm{f \ast \mathcal{P}_y)(x) - f(x)}{p}^p \leq
+  \int_{-\infty}^\infty \lpnorm{f_t - f}{p}^p\mathcal{P}_y(t)dt
+  \]
+  The function $g(t) = \lpnorm{f_t - f}{p}^p$ is bounded and
+  continuous because $t \mapsto f_t$ is uniformly continuous from $\R
+  \to L^p(\R)$ and the fact that $g(0) = 0$. Thus, the right hand side
+  of the above goes to zero as $y \to 0$.
+\end{enumerate}
+\end{document}

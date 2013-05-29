@@ -1,0 +1,219 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 5}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\Ha}{\mathbb{H}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{8.5.5}
+
+First note that $f(z) = -\frac{1}{2}(z + 1/z)$ is holomorphic in the
+half disk $U = \{z = x+iy \suchthat |z| < 1, y>1\}$ because the origin
+is excluded. We will first prove that $f$ is surjective from $U \to
+\Ha$. Indeed, we note that if $f(z) = w$ then $z^2+2wz+1 = 0$. This
+equation has two distinct roots in $\C$ if $w \neq \pm 1$, which is
+true because we exclude the real line in $\Ha$. Moreover, we see that
+one of the roots lies in the interior of $U$ because the roots
+are of the form $z_0 = -w \pm (w^2-1)$ and the product of the roots
+must be 1. So if we note that
+\[
+|z_0| = |-w - (w^2-1)| = |w+w^2+1| > 1, w \in \Ha
+\]
+Then the other root must satisfy $|z_1| = |1/w| < 1$ and lies in
+$U$. Then $f(z_1) = w$ and $f$ is surjective.
+
+For injectivity, we suppose that there were two distinct $z_0,z_1 \in
+U$ such that $w = f(z_0) = f(z_1)$. We again use the fact that
+$z_0,z_1$ must be the roots of the equation $z^2+2wz+1$ and by the
+above we see that only one of them can be in $U$. So $f$ is injective
+on $U$.
+
+Finally, we check that $f$ maps into $\Ha$. This is clear because if $z
+\in U$ then
+\[
+\imag{(-\frac{1}{2}(z+1/z))} = \frac{-1}{2}(\imag(z) -
+\frac{1}{|z|}\imag(z)) = -\frac{1}{2}\left(1 - \frac{1}{|z|}\right)\imag(z)
+\]
+Which is greater than zero when $|z| < 1$ (i.e. $z \in U$). So $f$
+maps $U$ into $\Ha$.
+
+\exercise{8.5.6}
+
+We will verify this with a direct calculation. We let $u:U\to\C$ be a
+harmonic function and $F = f(x,y) + ig(x,y)$ be holomorphic from $V\to
+U$. We then use the fact that
+\[
+\der{^2}{z\conj{z}} = \frac{1}{4}\Delta
+\]
+to compute
+\begin{align*}
+  \Delta(u \circ F) &= \frac{1}{4}(u \circ F)_{z\conj{z}} \\
+  &= \frac{1}{4}((u_z \circ F)\cdot F')_{\conj{z}} \\
+  &= \frac{1}{4}(u_{z\conj{z}} \circ F)\cdot F'\cdot\conj{F'} \\
+  &= (\Delta u\circ F)\cdot |F'|^2
+\end{align*}
+And because $\Delta u = 0$ the entire expresion is zero and we see
+that
+\[
+\Delta(u \circ F) = 0
+\]
+as well. Hence, $u \circ F$ is harmonic.
+
+\exercise{8.5.12}
+\begin{enumerate}
+\item[\textbf{(a)}] Suppose that $f:\D \to \D$ is analytic and has two
+  fixed points $z_0,z_1$. Then we recall the function
+  \[
+  \psi_{z_0}(z) = \frac{z-z_0}{1-\conj{z_0}z}
+  \]
+  from the text, whose important property is that $\psi_{z_0}(0) =
+  z_0$ and $\psi_{z_0}(z_0) = 0$. Then the function
+  \[
+  F = \psi_{z_0}^{-1} \circ f \circ \psi_{z_0}
+  \]
+  fixes the origin. Now we apply the Schwarz lemma to see that $|F(z)|
+  \leq |z|$ for $|z|\in \D$. Moreover, because equality holds, then
+  $F(z) = e^{i\theta}z$ for some $\theta$. Because $F(b) = b$ we see
+  that $\theta = 0$. As a result
+  \[
+  F(z) = (\psi_{z_0}^{-1} \circ f \circ \psi_{z_0})(z) = z
+  \]
+  And hence, $f(z) = z$ for every $z$ and $f$ is the identity.
+\item[\textbf{(b)}] Following the hint, we look at maps in
+  $\Ha$. Consider the horizontal translations in the upper half plane
+  of the form $\varphi_n: z \mapsto z+n$ for some integer $n$. Now take
+  any conformal map $f: \D \to \Ha$ and consider $F = \varphi_n^{-1}
+  \circ f \circ \varphi_n$. Then $F: \D \to \D$ is holomorphic, but
+  has no fixed points.
+\end{enumerate}
+
+\exercise{8.5.13}
+\begin{enumerate}
+\item[\textbf{(b)}] We are considering the hyperbolic distance defined
+  as
+  \[
+  \rho(z,w) = \left|\frac{z-w}{1-\conj{w}z}\right|
+  \]
+  By part \textbf{(a)} we have that if $f \in \text{Aut}(\D)$ then
+  \begin{eqnarray}
+    \rho(f(z),f(w)) &\leq& \rho(z,w) \nonumber \\
+    \left|\frac{f(z) - f(z)}{1 - \conj{f(w)}f(z)}\right| &\leq&
+    \left|\frac{z-w}{1-\conj{w}z}\right| \nonumber \\
+    \left|\frac{f(z) - f(z)}{z-w}\right|\cdot\frac{1}{|1 - \conj{f(w)}f(z)|
+    }
+    &\leq& \frac{1}{|1-\conj{w}{z}|} \nonumber
+  \end{eqnarray}
+  Now we let $w\to z$ and get the estimate
+  \[
+  \frac{|f'(z)|}{1-|f(z)|^2} \leq \frac{1}{1-|z|^2}
+  \]
+  for all $z \in \D$.
+\end{enumerate}
+
+\exercise{8.5.14}
+
+Let $f: \Ha \to \D$ be a conformal map. Recall from the text the map
+\[
+G(w) = i\frac{1-w}{1+w}
+\]
+which is conformal from $\D\to\Ha$. Then the composition of functions
+$f \circ G: \D \to \D$ is holomorphic and furthermore it is an
+automorphism of $\D$. As a result, we can apply Theorem 8.2.2 to see that
+\[
+(f \circ G)(z) = e^{i\theta}\frac{\alpha - z}{2-\conj{\alpha}z}
+\]
+or some $\theta \in \R$ and $\alpha\in \D$. Then we simplify by
+computing setting $z = G(w)$ and getting
+\[
+f(z) = f\left(i\frac{1-w}{1+w}\right)=e^{i\theta}\frac{\alpha -
+  w}{1-\conj{\alpha}w}
+\]
+Then recall that $G$ has an inverse map
+\[
+F(z) = \frac{i-z}{i+z}
+\]
+and do $w = F(z)$ and we can compute
+\[
+e^{i\theta}\frac{\alpha - w}{1-\conj{\alpha}w} =
+e^{i\theta}\frac{\alpha -
+  \frac{i-z}{i+z}}{1-\conj{\alpha}\frac{i-z}{i+z}} =
+e^{i\theta}\frac{(i+z)\alpha - (i-z)}{(i+z)-\conj{\alpha}(i-z)}
+\]
+Rearranging terms gives
+\[
+e^{i\theta}\frac{(i+z)\alpha - (i-z)}{(i+z)-\conj{\alpha}(i-z)} =
+e^{i\theta}\frac{z(1+\alpha) -
+  i(1-\alpha)}{z(1+\alpha)-i(1-\conj{\alpha})} = e^{i\theta}\frac{z -
+  i\frac{1-\alpha}{1+\alpha}}{z + i\frac{1-\conj{\alpha}}{1+\alpha}}
+\]
+We then make the substitution
+\[
+\beta = i\frac{1-\alpha}{1+\alpha}
+\]
+in the above to get
+\[
+e^{i\theta}\frac{z(1+\alpha) -
+  i(1-\alpha)}{z(1+\alpha)-i(1-\conj{\alpha})} = e^{i\theta}\frac{z -
+  i\frac{1-\alpha}{1+\alpha}}{z + i\frac{1-\conj{\alpha}}{1+\alpha}} =
+e^{i\theta}\frac{z-\beta}{z-\beta}
+\]
+as desired.
+\end{document}

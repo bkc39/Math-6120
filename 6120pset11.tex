@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[tmargin=1in,bmargin=1in,lmargin=1.5in,rmargin=1.5in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{ccfonts}
+\usepackage{relsize,fancyhdr,parskip}
+\usepackage{graphicx}
+
+\usepackage{tikz} \usetikzlibrary{shapes, shapes.geometric,
+  shapes.symbols, shapes.arrows, shapes.multipart, shapes.callouts,
+  shapes.misc,decorations.markings,decorations.shapes}
+
+\pagestyle{fancy}
+\lhead{Ben Carriel}
+\chead{Math 6120 Problem Set 11}
+\rhead{\today}
+
+\headheight 13.0pt
+\parskip 7.2pt
+\parindent 8pt
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\tand}{\tab\text{and}\tab}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\Ha}{\mathbb{H}}
+\DeclareMathOperator{\D}{\mathbb{D}}
+\DeclareMathOperator{\T}{\mathbb{T}}
+\DeclareMathOperator{\capchi}{\raisebox{2pt}{$\mathlarger{\mathlarger{\chi}}$}}
+
+\DeclareMathOperator{\divides}{\mathrel{|}}
+\DeclareMathOperator{\suchthat}{\mathrel{:}}
+
+\DeclareMathOperator{\lra}{\longrightarrow}
+\DeclareMathOperator{\into}{\hookrightarrow}
+\DeclareMathOperator{\onto}{\twoheadrightarrow}
+\DeclareMathOperator{\bijection}{\leftrightarrow}
+\DeclareMathOperator{\lap}{\bigtriangleup}
+
+\newcommand{\problem}[1]{\noindent{\textbf{Problem #1}}\\}
+\newcommand{\problempart}[1]{\noindent{\textbf{(#1)}}}
+\newcommand{\exercise}[1]{\noindent{\textbf{Exercise #1:}}}
+
+\newcommand{\der}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\lpnorm}[2]{\|#1\|_{L^{#2}}}
+\newcommand{\diam}[1]{\text{diam}(#1)}
+\newcommand{\seq}[2]{\{#1_{#2}\}_{#2 = 1}^\infty}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\cis}[1]{\operatorname{cis}#1}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\real}{\mathrel{\text{Re}}}
+\newcommand{\imag}{\mathrel{\text{Im}}}
+\newtheorem*{thm}{\\ Theorem}
+\newtheorem*{lem}{\\ Lemma}
+\newtheorem*{claim}{\\ Claim}
+\newtheorem*{defn}{\\ Definition}
+\newtheorem*{prop}{\\ Proposition}
+
+\begin{document}
+\exercise{7.9.1}
+
+To see that $f$ must be identically 0 in the polydisc $P_r(z^0)$ we
+observe that $f$ has a power series representation
+\[
+f(z) = \sum_{|\alpha| \leq d} a_{\alpha}(z-z^0)^{\alpha}
+\]
+Moreover, we have a formula for the $a_{\alpha}$ given by Proposition
+7.1.1 which states that
+\[
+a_{\alpha} = \frac{1}{(2\pi i)^n}\int_{C_r(z^0)} f(\zeta)\prod_{k=1}^d
+\frac{d\zeta _k}{(\zeta_k - z_k^0)^{\alpha_k+1}}
+\]
+Then we use the fact that $f$ vanishes the polydisc
+$\mathbb{P}_r(z^0)$ to conclude that $f$ must vanish in the disk
+$|\zeta_1 - z_1^0| = r_1$ to see that
+\[
+a_{\alpha} = \frac{1}{(2\pi i)^n}\left(\int_{|\zeta_1 - z_1^0| = r_1}
+  \frac{f(\zeta_1)}{(\zeta_1 -
+    z_1^0)}\right)\left(\int_{C_r(z^0)}\prod_{k=2}^d \frac{d\zeta
+    _k}{(\zeta_k - z_k^0)^{\alpha_k+1}}\right) = 0
+\]
+because the second term in the product is zero. Hence, $f$ is zero on
+some neighborhood in $\mathbb{P}_r(z^0)$. Now we apply Proposition 7.1.2
+to the functions $f$ and $0$ to conclude that they must agree on all
+of $\mathbb{P}_r(z^0)$.
+
+\exercise{7.9.2}
+\begin{enumerate}
+\item 
+\end{enumerate}
+
+\exercise{7.9.4}
+
+\exercise{7.9.5}
+\begin{enumerate}
+\item
+\item 
+\end{enumerate}
+
+\exercise{7.9.6}
+
+Let $D_\delta(z) \subset \Omega$ be a disc centered at $z \in
+\Omega$. We will apply Green's theorem (in the complex sense) to the
+differential form
+\[
+\frac{F(\zeta) d\zeta}{\zeta - z}
+\]
+in the region $\Omega_{(\delta,z)} = \Omega \setminus
+D_{\delta}(z)$. Indeed, Green's theorem states that
+\[
+\int_{\partial \Omega} \frac{F(\zeta) d\zeta}{\zeta - z} -
+\int_{\partial D_{\delta}(z)} \frac{F(\zeta) d\zeta}{\zeta - z} =
+\int_{\Omega_{(\delta,z)}} (\partial + \bar{\partial})\frac{F(\zeta)
+  d\zeta}{\zeta - z}
+\]
+We then use linearity to expand the right hand side to
+\[
+\int_{\Omega_{(\delta,z)}} \partial\left(\frac{F(\zeta) d\zeta}{\zeta
+    - z}\right) + \int_{\Omega_{(\delta,z)}}
+\bar{\partial}\left(\frac{F(\zeta) d\zeta}{\zeta - z}\right)
+\]
+Then we note that
+\[
+\partial\left(\frac{F(\zeta) d\zeta}{\zeta - z}\right) =
+\der{}{\zeta}\left(\frac{F(\zeta)}{\zeta - z}\right)d\zeta \wedge
+d\zeta = 0
+\]
+Moreover,
+\[
+\bar{\partial}\left(\frac{F(\zeta) d\zeta}{\zeta - z}\right) =
+\der{F}{\bar{\zeta}}\left(\frac{d\bar{\zeta}\wedge d\zeta}{\zeta -
+    z}\right) + f\der{}{\bar{\zeta}}\left(\frac{1}{\zeta -
+    z}\right)d\bar{\zeta}\wedge d\zeta
+\]
+We then use the fact that
+\[
+\der{}{\bar{\zeta}}\left(\frac{1}{\zeta - z}\right) = 0
+\]
+To conclude that
+\[
+\bar{\partial}\left(\frac{F(\zeta) d\zeta}{\zeta - z}\right) =
+\der{F}{\bar{\zeta}}\left(\frac{d\bar{\zeta}\wedge d\zeta}{\zeta -
+    z}\right)
+\]
+Substituting this into the integral formula we see that
+\[
+\int_{D_\delta(z)} (\partial + \bar{\partial})\frac{F(\zeta)
+  d\zeta}{\zeta - z} = \int_{D_\delta(z)}
+\der{F}{\bar{\zeta}}\left(\frac{d\bar{\zeta}\wedge d\zeta}{\zeta -
+    z}\right)
+\]
+Now we will simplify the integral
+\[
+\int_{\partial D_\delta(z)} \frac{F(\zeta) d\zeta}{\zeta - z} =
+\int_{\partial D_{\delta}(z)} \frac{F(\zeta) - f(z)}{\zeta - z}d\zeta
++ \int_{\partial D_\delta(z)} \frac{F(z)}{\zeta - z}d\zeta
+\]
+Now because $F$ is $C^1$ we can find a constant $M$ such that
+$|F(\zeta) - F(z)| \leq M|\zeta - z|$ on $\partial D_{\delta}(z)$. This
+gives the following estimate
+\[
+\left| \int_{\partial D_{\delta}(z)} \frac{F(\zeta) - f(z)}{\zeta -
+    z}d\zeta\right| \leq M\int_{\partial
+  D_{\delta}(z)}\left|\frac{\zeta -z}{\zeta -z}\right| |d\bar{\zeta}|
+= 2\pi \delta M
+\]
+Letting $\delta \to 0$ forces the integral to 0 as well. Finally, we recall that
+\[
+\int_{\partial D_{\delta}(z)} \frac{F(z)}{\zeta - z}d\zeta = 2\pi
+iF(z)
+\]
+This implies that
+\[
+\int_{\partial \Omega} \frac{F(\zeta)}{\zeta - z}d\zeta - 2\pi iF(z) =
+\int_{\Omega_{(\delta,z)}}
+\der{F}{\bar{\zeta}}\left(\frac{d\bar{\zeta}\wedge d\zeta}{\zeta -
+    z}\right) + O(\delta)
+\]
+Letting $\delta \to 0$ and rearranging the terms yields
+\[
+F(z) = \frac{1}{2\pi i}\int_{\partial \Omega} \frac{F(\zeta)}{\zeta -
+  z}d\zeta - \frac{1}{\pi}\int_\Omega \frac{(\partial
+  F/\partial\bar{\zeta})(\zeta)}{\zeta - z}dm(\zeta)
+\]
+
+\exercise{7.9.7}
+
+\end{document}
